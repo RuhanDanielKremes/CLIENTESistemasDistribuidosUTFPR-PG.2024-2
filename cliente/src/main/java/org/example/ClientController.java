@@ -1,57 +1,243 @@
 package org.example;
 
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import org.example.controller.LogController;
 import org.example.model.Json;
-import org.example.model.Json2;
-import org.example.model.JsonReturn;
-
-import com.google.gson.Gson;
+import org.example.model.JsonResponse;
+import org.example.model.User;
 
 import java.io.*; 
 
+import com.google.gson.Gson;
+
+
 public class ClientController extends Thread{
-        public static void main(String[] args) throws IOException {
-    
-        Socket socket = null;
-        PrintWriter writer = null;
-        BufferedReader reader = null;
-        
-        try {
-            socket = new Socket("localhost", 22222);  // Conectando ao servidor na porta 12345
-            writer = new PrintWriter(socket.getOutputStream(), true);  // Fluxo de saída (envio de dados)
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));  // Fluxo de entrada (leitura de resposta)
+    public static void main(String[] args) throws IOException {
 
-            // Criando o objeto Json
-            Json2 json2 = new Json2();
-            json2.setOperacao("cadastrarUsuario");
-            json2.setRa("1234567");
-            json2.setSenha("essaehasenha");
-            json2.setNome("JHON");
+        try (FileWriter writer = new FileWriter("log.txt")) {
+            writer.write("");
+        }  
 
-            // Usando Gson para converter o objeto em JSON
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(json2);
+        LogController logController = new LogController();
+        boolean sair = false;
+        List<Socket> sockets = new ArrayList<Socket>();
+        OperationController operationController = new OperationController();
+        int operacao = 0;
+        int socketNumber = -1;
+        String token = "";
+        String inputString = "";
+        Scanner scanner = new Scanner(System.in);
 
-            // Enviando o JSON para o servidor
-            writer.println(jsonString);
-            System.out.println("JSON enviado: " + jsonString);
-
-            // Recebendo resposta do servidor
-            String serverResponse = reader.readLine();
-            JsonReturn jsonReturn = gson.fromJson(serverResponse, JsonReturn.class);
-            System.out.println("JSON recebido: " + jsonReturn.toString());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (writer != null) writer.close();
-                if (reader != null) reader.close();
-                if (socket != null) socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
+        while(sair == false){
+            while (true) {
+                System.out.flush();
+                System.out.println("[1] Cadastrar socket\n[2] Utilizar socket\n[0] Sair");
+                inputString = scanner.nextLine().trim();
+                if (inputString.isEmpty()) {
+                    System.out.println("Opção inválida");
+                    continue;
+                }
+                try {
+                    operacao = Integer.parseInt(inputString);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Opção inválida");
+                }
+            }
+            switch (operacao) {
+                case 1: 
+                    System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
+                    System.out.flush();
+                    Socket newSocket = operationController.cadastrarSocket(scanner); 
+                    if (newSocket != null) {
+                        logController.writeSimpleLog("CLIENT: HOST", "Socket cadastrado", true);
+                        sockets.add(newSocket);
+                    }
+                    break;
+                case 2:  
+                    logController.writeSimpleLog("CLIENT: HOST", "Listando sockets disponiveis", true);
+                    System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
+                    System.out.flush();
+                    int i = 0;
+                    boolean isnull = false;
+                    for (Socket socket : sockets) {
+                        if (socket != null) {
+                            System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
+                            System.out.flush();
+                            System.out.println("[" + i + "] " + socket);
+                            logController.writeSimpleLog("CLIENT: HOST", "[" + i + "] " + socket, true);
+                            i++;
+                        }else{
+                            for (int j = 0; j < sockets.size(); j++) {
+                                if (sockets.get(j) == null) {
+                                    logController.writeSimpleLog("CLIENT: HOST", "Removendo socket " + j + "estado null", true);
+                                    sockets.remove(j);
+                                }
+                            }
+                        }
+                    }
+                    if (sockets.size() == 0) {
+                        isnull = true;
+                        logController.writeSimpleLog("CLIENT: HOST", "Nenhum socket cadastrado", true);
+                    }
+                    if (!isnull) {
+                        logController.writeSimpleLog("CLIENT: HOST", "Solicitando escolha de socket", true);
+                        while (true) {
+                            System.out.println("Digite o número do socket que deseja utilizar");
+                            inputString = scanner.nextLine().trim();
+                            if (inputString.isEmpty()) {
+                                System.out.println("Opção inválida");
+                                continue;
+                            }
+                            try {
+                                socketNumber = Integer.parseInt(inputString);
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Opção inválida");
+                            }
+                        }
+                        logController.writeSimpleLog("CLIENT: HOST", "Socket escolhido: " + socketNumber, true);
+                        if(socketNumber >= 0 && socketNumber < sockets.size()){
+                            logController.writeSimpleLog("CLIENT: HOST", "Conectando ao socket", true);
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(sockets.get(socketNumber).getInputStream()));
+                            PrintWriter writer = new PrintWriter(sockets.get(socketNumber).getOutputStream(), true);
+                            Gson gson = new Gson();
+                            boolean sair2 = false;
+                            System.out.print("\033[H\033[2J");
+                            System.out.flush();
+                            while (sair2 == false) {
+                                logController.writeSimpleLog("CLIENT: HOST", "Solicitando operação", true);
+                                int operation;
+                                while (true) {
+                                    System.out.println("[1] Cadastrar usuário\n[2] Login\n[3] Logout\n[0] Sair");
+                                    inputString = scanner.nextLine().trim();
+                                    if (inputString.isEmpty()) {
+                                        System.out.println("Opção inválida");
+                                        continue;
+                                    }
+                                    try {
+                                        operation = Integer.parseInt(inputString);
+                                        break;
+                                    } catch (NumberFormatException e) {
+                                        System.out.print("\033[H\033[2J");
+                                        System.out.flush();
+                                        System.out.println("Opção inválida");
+                                    }
+                                }
+                                String operationString = "";
+                                switch (operation) {
+                                    case 1: operationString = "cadastrarUsuario";
+                                        break;
+                                    case 2: operationString = "login";
+                                        break;
+                                    case 3: operationString = "logout";
+                                        break;
+                                    case 0: operationString = "Sair";
+                                        break;
+                                    default: 
+                                        System.out.print("\033[H\033[2J");
+                                        System.out.flush();
+                                        System.out.println("Opção inválida");
+                                        break;
+                                }
+                                if (operation >= 1 && operation <= 3) {
+                                    logController.writeSimpleLog("CLIENT: HOST", "Operação escolhida válida: " + operationString, true);
+                                    Json json = null;
+                                    if (operationString == "logout") {
+                                        if(token != null && !token.isEmpty()){
+                                            User user = new User();
+                                            user.setToken(token);
+                                            json = operationController.sitchOperation(operationString, user);
+                                        }else{
+                                            System.out.print("\033[H\033[2J");
+                                            System.out.flush();
+                                            System.out.println("Token não encontrado");
+                                        }
+                                    }else{
+                                        json = operationController.sitchOperation(operationString, null);
+                                    }
+                                    String jsonString = gson.toJson(json);
+                                    try (FileWriter filewriter = new FileWriter("output.json", true)) {
+                                        filewriter.write(jsonString);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if (jsonString == null || jsonString.isEmpty() || jsonString.equals("{}") || jsonString.equals("null")) {
+                                        System.out.println("JSON nulo");
+                                    }else{
+                                        logController.writeSimpleLog("CLIENT: HOST", "enviando JSON: " + jsonString, true);
+                                        writer.println(jsonString);
+                                        logController.writeSimpleLog("CLIENT: HOST", "JSON enviado", true);
+                                        System.out.print("\033[H\033[2J");
+                                        System.out.flush();
+                                        System.out.println("JSON enviado: " + jsonString);
+                                        logController.writeSimpleLog("SERVER: RESPONSE", "recebida resposta do servidor", true);
+                                        String serverResponse = reader.readLine();
+                                        JsonResponse jsonResponse = gson.fromJson(serverResponse, JsonResponse.class);
+                                        if (jsonResponse.getStatus() == 200) {
+                                            token = jsonResponse.getToken();
+                                            logController.writeSimpleLog("CLIENT: HOST", "Token recebido: " + token, true);
+                                        }
+                                        logController.writeLogJson("SERVER: RESPONSE", "lendo resposta do servidor", jsonString);
+                                        System.out.println("JSON recebido: " + jsonResponse.toString());
+                                        if(jsonResponse.getOperation().equals("logout")){
+                                            logController.writeSimpleLog("CLIENT: HOST", "Desconectando", true);
+                                            sair2 = true;
+                                        }
+                                    }
+                                }else{
+                                    if (operation == 0) {
+                                    logController.writeSimpleLog("CLIENT: HOST", "Saindo", true);
+                                    while (true) {
+                                        System.out.println("Deseja desconectar do socket? [S/N]");
+                                        inputString = scanner.nextLine().trim().toUpperCase();
+                                        if (inputString.isEmpty()) {
+                                            System.out.println("Opção inválida");
+                                            continue;
+                                        }
+                                        if (inputString.equals("S")) {
+                                            logController.writeSimpleLog("CLIENT: HOST", "Desconectando do socket", true);
+                                            sockets.get(socketNumber).close();
+                                            sair2 = true;
+                                            logController.writeSimpleLog("CLIENT: HOST", "Socket removido da lista", true);
+                                            sockets.remove(socketNumber);
+                                            break;
+                                        }else{
+                                            if (inputString.equals("N")) {
+                                                logController.writeSimpleLog("CLIENT: HOST", "Permanecendo conectado", true);
+                                                sair2 = true;
+                                                break;
+                                            }else{
+                                                System.out.println("Opção inválida");
+                                            }
+                                        }
+                                    }
+                                    sair2 = true;
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        System.out.print("\033[H\033[2J"); 
+                        System.out.flush();
+                        System.out.println("Nenhum socket cadastrado");
+                    }
+                    break;
+                case 0: sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+                    break;
             }
         }
+        if(socketNumber >= 0 && socketNumber < sockets.size()){
+            sockets.get(socketNumber).close();
+        }
+        scanner.close();
     }
 }
