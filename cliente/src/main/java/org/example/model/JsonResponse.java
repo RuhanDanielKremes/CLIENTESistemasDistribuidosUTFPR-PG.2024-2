@@ -1,17 +1,22 @@
 package org.example.model;
 
+import com.google.gson.annotations.Expose;
+
 public class JsonResponse {
- 
+    @Expose
     private int status;
+    @Expose
     private String token;
-    private String message;
-    private String operation;
+    @Expose
+    private String mensagem;
+    @Expose
+    private String operacao;
 
     public JsonResponse(){
         this.status = 0;
         this.token = "";
-        this.message = "";
-        this.operation = "";
+        this.mensagem = "";
+        this.operacao = "";
     }
 
     public void setStatus(int status) {
@@ -23,11 +28,11 @@ public class JsonResponse {
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.mensagem = message;
     }
 
-    public void setOperation(String operation) {
-        this.operation = operation;
+    public void setOperacao(String operacao) {
+        this.operacao = operacao;
     }
 
     public int getStatus() {
@@ -39,20 +44,20 @@ public class JsonResponse {
     }
 
     public String getMessage() {
-        return message;
+        return mensagem;
     }
 
-    public String getOperation() {
-        return operation;
+    public String getOperacao() {
+        return operacao;
     }
     
     @Override
     public String toString() {
-        switch (this.operation) {
+        switch (this.operacao) {
             case "cadastrarUsuario":
                 return "{status=" + '\'' + status + '\'' + 
-                        ", operacao=" + '\'' + operation + '\'' +
-                        ", mensagem=" + '\'' + message + '\'' +
+                        ", operacao=" + '\'' + operacao + '\'' +
+                        ", mensagem=" + '\'' + mensagem + '\'' +
                         '}';
             case "login":
                 if (this.status == 200) {
@@ -61,8 +66,8 @@ public class JsonResponse {
                             '}';
                 } else {
                     return "{status=" + '\'' + status + '\'' +
-                            ", operacao=" + '\'' + operation + '\'' +
-                            ", mensagem='" + '\'' + message + '\'' +
+                            ", operacao=" + '\'' + operacao + '\'' +
+                            ", mensagem='" + '\'' + mensagem + '\'' +
                             '}';
                 }
             case "logout":
@@ -70,14 +75,14 @@ public class JsonResponse {
                     return "{status=" + '\'' + status + '\'' + '}';
                 }else{
                     return "{status=" + '\'' + status + '\'' +
-                            ", operacao=" + '\'' + operation + '\'' +
-                            ", mensagem=" + '\'' + message + '\'' +
+                            ", operacao=" + '\'' + operacao + '\'' +
+                            ", mensagem=" + '\'' + mensagem + '\'' +
                             '}';
                 }
             default:
                 return  "{status=" + '\'' + status + '\'' +
-                        ", operacao=" + '\'' + operation + '\'' +
-                        ", mensagem=" + '\'' + message + '\'' +
+                        ", operacao=" + '\'' + operacao + '\'' +
+                        ", mensagem=" + '\'' + mensagem + '\'' +
                         '}';
         }
     }

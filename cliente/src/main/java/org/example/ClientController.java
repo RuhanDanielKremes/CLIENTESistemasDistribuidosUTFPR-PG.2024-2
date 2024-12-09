@@ -185,7 +185,7 @@ public class ClientController extends Thread{
                                         }
                                         logController.writeLogJson("SERVER: RESPONSE", "lendo resposta do servidor", jsonString);
                                         System.out.println("JSON recebido: " + jsonResponse.toString());
-                                        if(jsonResponse.getOperation().equals("logout")){
+                                        if(jsonResponse.getOperacao().equals("logout")){
                                             logController.writeSimpleLog("CLIENT: HOST", "Desconectando", true);
                                             sair2 = true;
                                         }

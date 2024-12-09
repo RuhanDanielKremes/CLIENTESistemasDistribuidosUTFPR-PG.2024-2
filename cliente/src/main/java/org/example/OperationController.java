@@ -165,7 +165,7 @@ public class OperationController {
         User user = new User();
         String ra;
         do {
-            System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
+            System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.print("Digite o RA do usuário: ");
             ra = System.console().readLine();
