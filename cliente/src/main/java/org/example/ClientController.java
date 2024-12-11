@@ -32,10 +32,9 @@ public class ClientController extends Thread{
         String inputString = "";
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
+        ClearConsole.clearConsole();
         while(sair == false){
             while (true) {
-                System.out.flush();
                 System.out.println("[1] Cadastrar socket\n[2] Utilizar socket\n[0] Sair");
                 inputString = scanner.nextLine().trim();
                 if (inputString.isEmpty()) {
@@ -51,8 +50,7 @@ public class ClientController extends Thread{
             }
             switch (operacao) {
                 case 1: 
-                    System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-                    System.out.flush();
+                    ClearConsole.clearConsole();
                     Socket newSocket = operationController.cadastrarSocket(scanner); 
                     if (newSocket != null) {
                         logController.writeSimpleLog("CLIENT: HOST", "Socket cadastrado", true);
@@ -61,14 +59,12 @@ public class ClientController extends Thread{
                     break;
                 case 2:  
                     logController.writeSimpleLog("CLIENT: HOST", "Listando sockets disponiveis", true);
-                    System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-                    System.out.flush();
+                    ClearConsole.clearConsole();
                     int i = 0;
                     boolean isnull = false;
                     for (Socket socket : sockets) {
                         if (socket != null) {
-                            System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-                            System.out.flush();
+                            ClearConsole.clearConsole();
                             System.out.println("[" + i + "] " + socket);
                             logController.writeSimpleLog("CLIENT: HOST", "[" + i + "] " + socket, true);
                             i++;
@@ -96,7 +92,12 @@ public class ClientController extends Thread{
                             }
                             try {
                                 socketNumber = Integer.parseInt(inputString);
-                                break;
+                                if (socketNumber < 0 && socketNumber > sockets.size()){
+                                    ClearConsole.clearConsole();
+                                    System.out.println("Opção inválida");
+                                }else{
+                                    break;
+                                }
                             } catch (NumberFormatException e) {
                                 System.out.println("Opção inválida");
                             }
@@ -108,8 +109,7 @@ public class ClientController extends Thread{
                             PrintWriter writer = new PrintWriter(sockets.get(socketNumber).getOutputStream(), true);
                             Gson gson = new Gson();
                             boolean sair2 = false;
-                            System.out.print("\033[H\033[2J");
-                            System.out.flush();
+                            ClearConsole.clearConsole();
                             while (sair2 == false) {
                                 logController.writeSimpleLog("CLIENT: HOST", "Solicitando operação", true);
                                 int operation;
@@ -124,8 +124,7 @@ public class ClientController extends Thread{
                                         operation = Integer.parseInt(inputString);
                                         break;
                                     } catch (NumberFormatException e) {
-                                        System.out.print("\033[H\033[2J");
-                                        System.out.flush();
+                                        ClearConsole.clearConsole();
                                         System.out.println("Opção inválida");
                                     }
                                 }
@@ -140,8 +139,7 @@ public class ClientController extends Thread{
                                     case 0: operationString = "Sair";
                                         break;
                                     default: 
-                                        System.out.print("\033[H\033[2J");
-                                        System.out.flush();
+                                        ClearConsole.clearConsole();
                                         System.out.println("Opção inválida");
                                         break;
                                 }
@@ -154,8 +152,7 @@ public class ClientController extends Thread{
                                             user.setToken(token);
                                             json = operationController.sitchOperation(operationString, user);
                                         }else{
-                                            System.out.print("\033[H\033[2J");
-                                            System.out.flush();
+                                            ClearConsole.clearConsole();
                                             System.out.println("Token não encontrado");
                                         }
                                     }else{
@@ -173,8 +170,7 @@ public class ClientController extends Thread{
                                         logController.writeSimpleLog("CLIENT: HOST", "enviando JSON: " + jsonString, true);
                                         writer.println(jsonString);
                                         logController.writeSimpleLog("CLIENT: HOST", "JSON enviado", true);
-                                        System.out.print("\033[H\033[2J");
-                                        System.out.flush();
+                                        ClearConsole.clearConsole();
                                         System.out.println("JSON enviado: " + jsonString);
                                         logController.writeSimpleLog("SERVER: RESPONSE", "recebida resposta do servidor", true);
                                         String serverResponse = reader.readLine();
@@ -223,14 +219,15 @@ public class ClientController extends Thread{
                             }
                         }
                     }else{
-                        System.out.print("\033[H\033[2J"); 
-                        System.out.flush();
+                        ClearConsole.clearConsole();
                         System.out.println("Nenhum socket cadastrado");
                     }
                     break;
-                case 0: sair = true;
+                case 0: ClearConsole.clearConsole();
+                    sair = true;
                     break;
                 default:
+                    ClearConsole.clearConsole();
                     System.out.println("Opção inválida");
                     break;
             }

@@ -32,7 +32,8 @@ public class OperationController {
         try {
             scanner = new Scanner(System.in);
             while (console != 0) {
-                if (console == 10) {
+                switch (console) {
+                    case 10:
                     while (true) {
                         System.out.println("[0] para sair\n[1] Cadastar novo host\n[2] Cadastar host padrão");
                         inputString = scanner.nextLine().trim();
@@ -46,18 +47,21 @@ public class OperationController {
                         } catch (NumberFormatException e) {
                             System.out.println("Opção inválida");
                         }
+                        break;
                     }
-                }else{
-                    if (console == 1) {
+                    case 0:
+                        ClearConsole.clearConsole();
+                        break;
+                    case 1:
                         String host = "";
-                        System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-                        System.out.flush();
+                        ClearConsole.clearConsole();// Código ANSI para limpar tela
+                        
                         System.out.println("Digite o host");
                         host = System.console().readLine();
                         int port = 0;
                         while (port == 0) {
                             System.out.println("Digite a porta");
-                           try {
+                            try {
                                 port = Integer.parseInt(System.console().readLine());
                             } catch (Exception e) {
                                 System.out.println("Porta inválida");
@@ -66,8 +70,8 @@ public class OperationController {
                         Socket socket = testSocket(host, port);
                         if (socket != null) {
                             logController.writeSimpleLog("CLIENT: HOST", "Conexão estabelecida", true);
-                            System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-                            System.out.flush();
+                            ClearConsole.clearConsole();// Código ANSI para limpar tela
+                            
                             System.out.println("Conexão estabelecida");
                             return testSocket(host, port);
                         }else{
@@ -75,22 +79,25 @@ public class OperationController {
                             System.out.println("Host ou porta inválidos");
                             console = 10;
                         }
-                    }else{
-                        if (console == 2) {
-                            Socket socket = testSocket("localhost", 22222);
-                            if (socket != null) {
-                                logController.writeSimpleLog("CLIENT: HOST", "Conexão estabelecida", true);
-                                System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-                                System.out.flush();
-                                System.out.println("Conexão estabelecida");
-                                return socket;
-                            }else{
-                                logController.writeSimpleLog("CLIENT: HOST", "Host ou porta inválidos", true);
-                                System.out.println("Host ou porta inválidos");
-                                console = 10;
-                            }
+                        break;
+                    case 2:
+                        socket = testSocket("localhost", 22222);
+                        if (socket != null) {
+                            logController.writeSimpleLog("CLIENT: HOST", "Conexão estabelecida", true);
+                            ClearConsole.clearConsole();
+                            System.out.println("Conexão estabelecida");
+                            return socket;
+                        }else{
+                            logController.writeSimpleLog("CLIENT: HOST", "Host ou porta inválidos", true);
+                            System.out.println("Host ou porta inválidos");
+                            console = 10;
                         }
-                    }
+                        break;
+                    default:
+                        ClearConsole.clearConsole();
+                        System.out.println("Opção inválida");
+                        console = 10;
+                        break;
                 }
             }
         } catch (Exception e) {
@@ -117,8 +124,8 @@ public class OperationController {
         User user = new User();
         String nome;
         do {
-            System.out.print("\033[H\033[2J"); // Código ANSI para limpar tela
-            System.out.flush();
+            ClearConsole.clearConsole();// Código ANSI para limpar tela
+            
             System.out.print("Digite o nome do usuário: ");
             nome = System.console().readLine();
             nome = nome.toUpperCase();
@@ -165,8 +172,8 @@ public class OperationController {
         User user = new User();
         String ra;
         do {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            ClearConsole.clearConsole();
+            
             System.out.print("Digite o RA do usuário: ");
             ra = System.console().readLine();
             if (ra.length() != 7) {
