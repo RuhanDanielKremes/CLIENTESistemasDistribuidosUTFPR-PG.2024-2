@@ -115,7 +115,7 @@ public class ClientController extends Thread{
                                 logController.writeSimpleLog("CLIENT: HOST", "Solicitando operação", true);
                                 int operation;
                                 while (true) {
-                                    System.out.println("[1] Cadastrar usuário\n[2] Login\n[3] Logout\n[4] Listar Categorias\n[0] Sair");
+                                    System.out.println("[1] Cadastrar usuário\n[2] Login\n[3] Logout\n[4] Listar Categorias\n[5] Buscar Categoria\n[6] Listar Categorias do Usuário\n[0] Sair");
                                     inputString = scanner.nextLine().trim();
                                     if (inputString.isEmpty()) {
                                         System.out.println("Opção inválida");
@@ -139,6 +139,10 @@ public class ClientController extends Thread{
                                         break;
                                     case 4: operationString = "listarCategorias";
                                         break;
+                                    case 5: operationString = "localizarCategoria";
+                                        break;
+                                    case 6: operationString = "listarUsuarioCategorias";
+                                        break;
                                     case 0: operationString = "Sair";
                                         break;
                                     default: 
@@ -146,7 +150,7 @@ public class ClientController extends Thread{
                                         System.out.println("Opção inválida");
                                         break;
                                 }
-                                if (operation >= 1 && operation <= 4) {
+                                if (operation >= 1 && operation <= 6) {
                                     logController.writeSimpleLog("CLIENT: HOST", "Operação escolhida válida: " + operationString, true);
                                     Json json = null;
                                     if (operationString == "logout") {
@@ -177,7 +181,7 @@ public class ClientController extends Thread{
                                         System.out.println("JSON enviado: " + jsonString);
                                         logController.writeSimpleLog("SERVER: RESPONSE", "recebida resposta do servidor", true);
                                         String serverResponse = reader.readLine();
-                                        // System.out.println("serverResponse" + serverResponse);
+                                        System.out.println("serverResponse" + serverResponse);
                                         JsonResponse jsonResponse = gson.fromJson(serverResponse, JsonResponse.class);
                                         if (jsonResponse.getStatus() == 200) {
                                             token = jsonResponse.getToken();

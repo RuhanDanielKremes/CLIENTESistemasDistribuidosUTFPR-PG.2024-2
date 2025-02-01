@@ -1,9 +1,18 @@
 package org.example.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Category {
  
+    @Expose
+    @SerializedName("id")
     private int id;
+
+    @Expose
+    @SerializedName("nome")
     private String name;
+
 
     public Category() {
         id = 0;
@@ -25,10 +34,14 @@ public class Category {
     public String getName() {
         return name;
     }
-    
 
     @Override
     public String toString() {
-        return "Category [id=" + id + ", name=" + name + "]";
+        String returnString = "{id: " + this.id;
+        if (this.name != null) {
+            return returnString += ", name: " + this.name + "}";
+        }
+        return returnString += "}";
     }
+    
 }

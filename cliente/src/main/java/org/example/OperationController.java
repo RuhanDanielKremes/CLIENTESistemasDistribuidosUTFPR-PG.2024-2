@@ -22,6 +22,10 @@ public class OperationController {
                 return logout(user);
             case "listarCategorias":
                 return listarCategorias(user);
+            case "localizarCategoria":
+                return localizarCategoria(user);
+            case "listarUsuarioCategorias":
+                return listarUsuarioCategorias(user);
             default:
                 logController.writeSimpleLog("CLIENT: SEARCH OPERATION", "Operation not implementated", false);
                 return null;
@@ -222,7 +226,36 @@ public class OperationController {
         logController.writeSimpleLog("CLIENT: OPERATION", "Listar categorias pronto para ser enviado", true);
         return json;
     }
-    
+
+    public Json localizarCategoria(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Localizando categoria", true);
+        Json json = new Json();
+        while (true) {
+            System.out.print("Digite o ID da categoria: ");
+            String id = System.console().readLine();
+            if (id.matches("^[0-9]+$")) {
+                json.setId(Integer.parseInt(id));
+                break;
+            }else{
+                logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
+                System.out.println("ID inválido");
+            }
+        }
+        json.setOperacao("localizarCategoria");
+        json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Localizar categoria pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json listarUsuarioCategorias(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listando categorias do usuário", true);
+        Json json = new Json();
+        json.setOperacao("listarUsuarioCategorias");
+        json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listar categorias do usuario pronto para ser enviado", true);
+        return json;
+    }
+
     public void sair(){}
 
 }

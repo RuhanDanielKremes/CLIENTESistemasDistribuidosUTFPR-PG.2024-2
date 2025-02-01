@@ -1,7 +1,6 @@
 package org.example.model;
 
 import java.util.List;
-
 import com.google.gson.annotations.Expose;
 
 public class JsonResponse {
@@ -16,7 +15,7 @@ public class JsonResponse {
     @Expose
     private List<Category> categorias;
 
-    public JsonResponse(){
+    public JsonResponse() {
         this.status = 0;
         this.token = "";
         this.mensagem = "";
@@ -24,91 +23,75 @@ public class JsonResponse {
         this.categorias = null;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public void setMessage(String message) {
-        this.mensagem = message;
-    }
-
-    public void setOperacao(String operacao) {
-        this.operacao = operacao;
-    }
-
+    // Getters e Setters
     public int getStatus() {
         return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getToken() {
         return token;
     }
 
-    public String getMessage() {
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getMensagem() {
         return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     public String getOperacao() {
         return operacao;
     }
-    
+
+    public void setOperacao(String operacao) {
+        this.operacao = operacao;
+    }
+
+    public List<Category> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Category> categorias) {
+        this.categorias = categorias;
+    }
+
     @Override
     public String toString() {
         switch (this.operacao) {
-            case "cadastrarUsuario":
-                return "{status=" + '\'' + status + '\'' + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
-                        '}';
             case "login":
-                if (this.status == 200) {
-                    return "{status=" + '\'' + status +
-                            ", token=" + '\'' + token + '\'' +
-                            '}';
-                } else {
-                    return "{status=" + '\'' + status + '\'' +
-                            ", operacao=" + '\'' + operacao + '\'' +
-                            ", mensagem='" + '\'' + mensagem + '\'' +
-                            '}';
-                }
-            case "logout":
-                if (this.status == 200) {
-                    return "{status=" + '\'' + status + '\'' + '}';
-                }else{
-                    return "{status=" + '\'' + status + '\'' +
-                            ", operacao=" + '\'' + operacao + '\'' +
-                            ", mensagem=" + '\'' + mensagem + '\'' +
-                            '}';
-                }
+                return "{status=" + status +
+                        ", token='" + token + '\'' +
+                        ", operacao='" + operacao + '\'' +
+                        ", mensagem='" + mensagem + '\'' +
+                        '}';
             case "listarCategorias":
-                String returnToString;
-                returnToString = "{status=" + '\'' + status + '\'' +
-                        ", operacao=" + '\'' + operacao + '\''
-                        + ", categorias=[";
-                if (categorias == null) {
-                    returnToString += "null]}";
-                    return returnToString;
-                }
-                if (categorias.isEmpty()) {
-                    returnToString += "]}";
-                    return returnToString;
-                }
-                for (Category category : this.categorias) {
-                    if (category.equals(this.categorias.get(this.categorias.size() - 1))) {
-                        returnToString += category.toString() + "]}";
-                    } else {
-                        returnToString += category.toString() + ", ";
+                StringBuilder returnToString = new StringBuilder();
+                returnToString.append("{status=").append(status)
+                        .append(", operacao='").append(operacao)
+                        .append("', categorias=[");
+                if (categorias != null) {
+                    for (int i = 0; i < categorias.size(); i++) {
+                        returnToString.append(categorias.get(i).toString());
+                        if (i != categorias.size() - 1) {
+                            returnToString.append(", ");
+                        }
                     }
                 }
-                return returnToString;
+                returnToString.append("]}");
+                return returnToString.toString();
             default:
-                return  "{status=" + '\'' + status + '\'' +
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                return "{status=" + status +
+                        ", operacao='" + operacao + '\'' +
+                        ", mensagem='" + mensagem + '\'' +
                         '}';
         }
     }
