@@ -26,6 +26,12 @@ public class OperationController {
                 return localizarCategoria(user);
             case "listarUsuarioCategorias":
                 return listarUsuarioCategorias(user);
+            case "cadastrarUsuarioCategoria":
+                return cadastrarUsuarioCategoria(user);
+            case "descadastrarUsuarioCategoria":
+                return descadastrarUsuarioCategoria(user);
+            case "listarAvisos":
+                return listarAvisos(user);
             default:
                 logController.writeSimpleLog("CLIENT: SEARCH OPERATION", "Operation not implementated", false);
                 return null;
@@ -253,6 +259,55 @@ public class OperationController {
         json.setOperacao("listarUsuarioCategorias");
         json.setToken(user.getToken());
         logController.writeSimpleLog("CLIENT: OPERATION", "Listar categorias do usuario pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json cadastrarUsuarioCategoria(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrando categoria do usuário", true);
+        Json json = new Json();
+        while (true) {
+            System.out.print("Digite o ID da categoria: ");
+            String id = System.console().readLine();
+            if (id.matches("^[0-9]+$")) {
+                json.setId(Integer.parseInt(id));
+                break;
+            }else{
+                logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
+                System.out.println("ID inválido");
+            }
+        }
+        json.setOperacao("cadastrarUsuarioCategoria");
+        json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrar categoria do usuario pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json descadastrarUsuarioCategoria(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Descadastrando categoria do usuário", true);
+        Json json = new Json();
+        while (true) {
+            System.out.print("Digite o ID da categoria: ");
+            String id = System.console().readLine();
+            if (id.matches("^[0-9]+$")) {
+                json.setId(Integer.parseInt(id));
+                break;
+            }else{
+                logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
+                System.out.println("ID inválido");
+            }
+        }
+        json.setOperacao("descadastrarUsuarioCategoria");
+        json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Descadastrar categoria do usuario pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json listarAvisos(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listando avisos", true);
+        Json json = new Json();
+        json.setOperacao("listarAvisos");
+        json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listar avisos pronto para ser enviado", true);
         return json;
     }
 

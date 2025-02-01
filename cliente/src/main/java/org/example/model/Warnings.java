@@ -5,13 +5,13 @@ public class Warnings {
     private int id;
     private String title;
     private String description;
-    private Category category;
+    private int category;
 
     public Warnings() {
         id = 0;
         title = "";
         description = "";
-        category = new Category();
+        category = 0;
     }
 
     public void setId(int id) {
@@ -38,28 +38,24 @@ public class Warnings {
         return description;
     }
 
-    public void setCategoryObject(Category category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
-    public Category getCategoryObject() {
+    public int getCategory() {
         return category;
     }
 
-    public String getCategory() {
-        return category.getName();
-    }
-
-    public void setCategory(String category) {
-        this.category.setName(category);
-    }
-
-    public void setCategoryId(int id) {
-        this.category.setId(id);
-    }
-
-    public int getCategoryId(int id) {
-        return this.category.getId();
+    @Override
+    public String toString() {
+        String returnString = "{id: " + this.id;
+        if (this.title != null && !this.title.isEmpty()) {
+            returnString += ", title: " + this.title;
+        }
+        if (this.description != null && !this.description.isEmpty()) {
+            returnString += ", description: " + this.description;
+        }
+        return returnString += ", category: " + this.category + "}";
     }
 
 }

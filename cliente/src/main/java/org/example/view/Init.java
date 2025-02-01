@@ -42,7 +42,8 @@ public class Init extends JFrame{
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                // TODO
+                // pass to a variable the ip and port
+                // ipField.getText();
                 new Method();
                 dispose();
             }
