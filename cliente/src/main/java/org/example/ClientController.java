@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
+
 import org.example.controller.LogController;
 import org.example.model.Json;
 import org.example.model.JsonResponse;
 import org.example.model.User;
+import org.example.view.Init;
 
 import java.io.*; 
 
@@ -17,6 +20,8 @@ import com.google.gson.Gson;
 
 public class ClientController extends Thread{
     public static void main(String[] args) throws IOException {
+
+        SwingUtilities.invokeLater(() -> new Init());
 
         try (FileWriter writer = new FileWriter("log.txt")) {
             writer.write("");
