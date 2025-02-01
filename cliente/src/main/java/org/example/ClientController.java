@@ -104,6 +104,7 @@ public class ClientController extends Thread{
                         }
                         logController.writeSimpleLog("CLIENT: HOST", "Socket escolhido: " + socketNumber, true);
                         if(socketNumber >= 0 && socketNumber < sockets.size()){
+                            User user = new User();
                             logController.writeSimpleLog("CLIENT: HOST", "Conectando ao socket", true);
                             BufferedReader reader = new BufferedReader(new InputStreamReader(sockets.get(socketNumber).getInputStream()));
                             PrintWriter writer = new PrintWriter(sockets.get(socketNumber).getOutputStream(), true);
@@ -114,7 +115,7 @@ public class ClientController extends Thread{
                                 logController.writeSimpleLog("CLIENT: HOST", "Solicitando operação", true);
                                 int operation;
                                 while (true) {
-                                    System.out.println("[1] Cadastrar usuário\n[2] Login\n[3] Logout\n[0] Sair");
+                                    System.out.println("[1] Cadastrar usuário\n[2] Login\n[3] Logout\n[4] Listar Categorias\n[0] Sair");
                                     inputString = scanner.nextLine().trim();
                                     if (inputString.isEmpty()) {
                                         System.out.println("Opção inválida");
@@ -136,6 +137,8 @@ public class ClientController extends Thread{
                                         break;
                                     case 3: operationString = "logout";
                                         break;
+                                    case 4: operationString = "listarCategorias";
+                                        break;
                                     case 0: operationString = "Sair";
                                         break;
                                     default: 
@@ -143,12 +146,11 @@ public class ClientController extends Thread{
                                         System.out.println("Opção inválida");
                                         break;
                                 }
-                                if (operation >= 1 && operation <= 3) {
+                                if (operation >= 1 && operation <= 4) {
                                     logController.writeSimpleLog("CLIENT: HOST", "Operação escolhida válida: " + operationString, true);
                                     Json json = null;
                                     if (operationString == "logout") {
                                         if(token != null && !token.isEmpty()){
-                                            User user = new User();
                                             user.setToken(token);
                                             json = operationController.sitchOperation(operationString, user);
                                         }else{
@@ -156,7 +158,7 @@ public class ClientController extends Thread{
                                             System.out.println("Token não encontrado");
                                         }
                                     }else{
-                                        json = operationController.sitchOperation(operationString, null);
+                                        json = operationController.sitchOperation(operationString, user);
                                     }
                                     String jsonString = gson.toJson(json);
                                     try (FileWriter filewriter = new FileWriter("output.json", true)) {
@@ -165,6 +167,7 @@ public class ClientController extends Thread{
                                         e.printStackTrace();
                                     }
                                     if (jsonString == null || jsonString.isEmpty() || jsonString.equals("{}") || jsonString.equals("null")) {
+                                        logController.writeLogJson(operationString, inputString, jsonString);
                                         System.out.println("JSON nulo");
                                     }else{
                                         logController.writeSimpleLog("CLIENT: HOST", "enviando JSON: " + jsonString, true);
@@ -174,9 +177,11 @@ public class ClientController extends Thread{
                                         System.out.println("JSON enviado: " + jsonString);
                                         logController.writeSimpleLog("SERVER: RESPONSE", "recebida resposta do servidor", true);
                                         String serverResponse = reader.readLine();
+                                        // System.out.println("serverResponse" + serverResponse);
                                         JsonResponse jsonResponse = gson.fromJson(serverResponse, JsonResponse.class);
                                         if (jsonResponse.getStatus() == 200) {
                                             token = jsonResponse.getToken();
+                                            user.setToken(token);
                                             logController.writeSimpleLog("CLIENT: HOST", "Token recebido: " + token, true);
                                         }
                                         logController.writeLogJson("SERVER: RESPONSE", "lendo resposta do servidor", jsonString);

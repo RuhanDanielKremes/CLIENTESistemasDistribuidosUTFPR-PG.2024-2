@@ -20,7 +20,10 @@ public class OperationController {
                 return login();
             case "logout":
                 return logout(user);
+            case "listarCategorias":
+                return listarCategorias(user);
             default:
+                logController.writeSimpleLog("CLIENT: SEARCH OPERATION", "Operation not implementated", false);
                 return null;
         }
     }
@@ -211,6 +214,15 @@ public class OperationController {
         return json;
     }
 
+    public Json listarCategorias(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listando categorias", true);
+        Json json = new Json();
+        json.setOperacao("listarCategorias");
+        json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listar categorias pronto para ser enviado", true);
+        return json;
+    }
+    
     public void sair(){}
 
 }

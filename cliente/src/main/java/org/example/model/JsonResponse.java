@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 
 public class JsonResponse {
@@ -11,12 +13,15 @@ public class JsonResponse {
     private String mensagem;
     @Expose
     private String operacao;
+    @Expose
+    private List<Category> categorias;
 
     public JsonResponse(){
         this.status = 0;
         this.token = "";
         this.mensagem = "";
         this.operacao = "";
+        this.categorias = null;
     }
 
     public void setStatus(int status) {
@@ -79,6 +84,27 @@ public class JsonResponse {
                             ", mensagem=" + '\'' + mensagem + '\'' +
                             '}';
                 }
+            case "listarCategorias":
+                String returnToString;
+                returnToString = "{status=" + '\'' + status + '\'' +
+                        ", operacao=" + '\'' + operacao + '\''
+                        + ", categorias=[";
+                if (categorias == null) {
+                    returnToString += "null]}";
+                    return returnToString;
+                }
+                if (categorias.isEmpty()) {
+                    returnToString += "]}";
+                    return returnToString;
+                }
+                for (Category category : this.categorias) {
+                    if (category.equals(this.categorias.get(this.categorias.size() - 1))) {
+                        returnToString += category.toString() + "]}";
+                    } else {
+                        returnToString += category.toString() + ", ";
+                    }
+                }
+                return returnToString;
             default:
                 return  "{status=" + '\'' + status + '\'' +
                         ", operacao=" + '\'' + operacao + '\'' +
