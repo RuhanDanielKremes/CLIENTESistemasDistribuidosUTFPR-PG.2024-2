@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 log.txt
 output.json
+!**/src/main/resources/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
