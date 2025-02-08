@@ -11,12 +11,12 @@ public class Category {
 
     @Expose
     @SerializedName("nome")
-    private String name;
+    private String nome;
 
 
     public Category() {
         id = 0;
-        name = "";
+        nome = "";
     }
 
     public void setId(int id) {
@@ -27,19 +27,19 @@ public class Category {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nome) {
+        this.nome = nome;
     }
 
     public String getName() {
-        return name;
+        return nome;
     }
 
     @Override
     public String toString() {
         String returnString = "{id: " + this.id;
-        if (this.name != null) {
-            return returnString += ", name: " + this.name + "}";
+        if (this.nome != null) {
+            return returnString += ", nome: " + this.nome + "}";
         }
         return returnString += "}";
     }

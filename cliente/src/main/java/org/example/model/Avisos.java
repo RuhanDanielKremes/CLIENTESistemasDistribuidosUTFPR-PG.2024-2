@@ -1,17 +1,17 @@
 package org.example.model;
 
-public class Warnings {
+public class Avisos {
  
     private int id;
     private String titulo;
     private String descricao;
-    private int categoria;
+    private Category categoria;
 
-    public Warnings() {
+    public Avisos() {
         id = 0;
         titulo = "";
         descricao = "";
-        categoria = 0;
+        categoria = null;
     }
 
     public void setId(int id) {
@@ -38,23 +38,17 @@ public class Warnings {
         return descricao;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(Category category) {
         this.categoria = category;
     }
 
-    public int getCategory() {
+    public Category getCategory() {
         return categoria;
     }
 
     @Override
     public String toString() {
-        String returnString = "{\"id\": " + this.id;
-        if (this.titulo != null && !this.titulo.isEmpty()) {
-            returnString += ", \"title\": \"" + this.titulo + "\"";
-        }
-        if (this.descricao != null && !this.descricao.isEmpty()) {
-            returnString += ", \"description\": \"" + this.descricao + "\"";
-        }
-        return returnString += ", \"category\": " + this.categoria + "}";
+        String returnString = "{id: " + this.id + "titulo:" + this.titulo + "descricao:" + this.descricao + "categoria:[" + this.categoria + "]}";
+        return returnString;
     }
 }

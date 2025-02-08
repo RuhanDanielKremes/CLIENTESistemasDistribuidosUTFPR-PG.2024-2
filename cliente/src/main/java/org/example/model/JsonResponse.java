@@ -15,7 +15,9 @@ public class JsonResponse {
     @Expose
     private List<Category> categorias;
     @Expose
-    private List<Warnings> avisos;
+    private List<Avisos> avisos;
+    @Expose
+    private List<User> usuarios;
 
     public JsonResponse() {
         this.status = 0;
@@ -24,6 +26,7 @@ public class JsonResponse {
         this.operacao = "";
         this.categorias = null;
         this.avisos = null;
+        this.usuarios = null;
     }
 
     // Getters e Setters
@@ -67,53 +70,61 @@ public class JsonResponse {
         this.categorias = categorias;
     }
 
-    public List<Warnings> getAvisos() {
+    public List<Avisos> getAvisos() {
         return avisos;
     }
 
-    public void setAvisos(List<Warnings> avisos) {
+    public void setAvisos(List<Avisos> avisos) {
         this.avisos = avisos;
+    }
+
+    public List<User> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<User> usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
     public String toString() {
         switch (this.operacao) {
             case "cadastrarUsuario":
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
             case "login":
-                if (this.status == 200) {
-                    return "{status=" + status +
+                if (this.status == 201) {
+                    return "{\"status\"=" + status +
                             ", token=" + '\'' + token + '\'' +
                             '}';
                 } else {
-                    return "{status=" + status +
-                            ", operacao=" + '\'' + operacao + '\'' +
-                            ", mensagem='" + '\'' + mensagem + '\'' +
+                    return "{\"status\"=" + status +
+                            ", \"operacao=\"" + '\'' + operacao + '\'' +
+                            ", \"mensagem\"='" + '\'' + mensagem + '\'' +
                             '}';
                 }
             case "logout":
                 if (this.status == 200) {
-                    return "{status=" + status + '}';
+                    return "{\"status\"=" + status + '}';
                 }else{
-                    return "{status=" + status +
-                            ", operacao=" + '\'' + operacao + '\'' +
-                            ", mensagem=" + '\'' + mensagem + '\'' +
+                    return "{\"status\"=" + status +
+                            ", \"operacao=\"" + '\'' + operacao + '\'' +
+                            ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                             '}';
                 }
             case "listarCategorias":
-                if (status != 200) {
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
                 }
                 String returnToString;
-                returnToString = "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\''
-                        + ", categorias=[";
+                returnToString = "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\''
+                        + ", \"categorias\"=[";
                 if (categorias == null) {
                     returnToString += "]}";
                     return returnToString;
@@ -131,27 +142,27 @@ public class JsonResponse {
                 }
                 return returnToString;
             case "localizarCategoria":
-            if (status != 200) {
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+            if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
                 }
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", categorias=" + categorias.toString() +
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"categorias\"=" + categorias.toString() +
                         '}';
             case "listarAvisos":
-                if (status != 200) {
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
                 }
                 String returnToStringWarnings;
-                returnToStringWarnings = "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\''
-                        + ", avisos=[";
+                returnToStringWarnings = "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\''
+                        + ", \"avisos\"=[";
                 if (avisos == null) {
                     returnToStringWarnings += "]}";
                     return returnToStringWarnings;
@@ -160,7 +171,7 @@ public class JsonResponse {
                     returnToStringWarnings += "]}";
                     return returnToStringWarnings;
                 }
-                for (Warnings warning : this.avisos) {
+                for (Avisos warning : this.avisos) {
                     if (warning.equals(this.avisos.get(this.avisos.size() - 1))) {
                         returnToStringWarnings += warning.toString() + "]}";
                     } else {
@@ -169,37 +180,201 @@ public class JsonResponse {
                 }
                 return returnToStringWarnings;
             case "cadastrarUsuarioCategoria":
-                if (status != 200) {
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
                 }
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
             case "descadastrarUsuarioCategoria":
-                if (status != 200) {
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
                 }
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "listarUsuarioCategorias":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                String returnToStringCategories;
+                returnToStringCategories = "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\''
+                        + ", \"categorias\"=[";
+                if (categorias == null) {
+                    returnToStringCategories += "]}";
+                    return returnToStringCategories;
+                }
+                if (categorias.isEmpty()) {
+                    returnToStringCategories += "]}";
+                    return returnToStringCategories;
+                }
+                for (Category category : this.categorias) {
+                    if (category.equals(this.categorias.get(this.categorias.size() - 1))) {
+                        returnToStringCategories += category.toString() + "]}";
+                    } else {
+                        returnToStringCategories += category.toString() + ", ";
+                    }
+                }
+                return returnToStringCategories;
+            case "listarUsuarios":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                String returnToStringUsers;
+                returnToStringUsers = "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\''
+                        + ", \"usuarios\"=[";
+                if (usuarios == null) {
+                    returnToStringUsers += "]}";
+                    return returnToStringUsers;
+                }
+                if (usuarios.isEmpty()) {
+                    returnToStringUsers += "]}";
+                    return returnToStringUsers;
+                }
+                for (User user : this.usuarios) {
+                    if (user.equals(this.usuarios.get(this.usuarios.size() - 1))) {
+                        returnToStringUsers += user.toString() + "]}";
+                    } else {
+                        returnToStringUsers += user.toString() + ", ";
+                    }
+                }
+                return returnToStringUsers;
+            case "localizarUsuario":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"usuarios\"=" + usuarios.toString() +
+                        '}';
+            case "excluirUsuario":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "editarUsuario":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "criarCategoria":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "editarCategoria":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "excluirCategoria":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "criarAviso":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "editarAviso":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+            case "localizarAviso":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"avisos\"=" + avisos.toString() +
+                        '}';
+            case "excluirAviso":
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
+                        '}';
+                }
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
             default:
-                if (status != 200) {
-                return "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                if (status != 201) {
+                return "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
                 }
-                return  "{status=" + status + 
-                        ", operacao=" + '\'' + operacao + '\'' +
-                        ", mensagem=" + '\'' + mensagem + '\'' +
+                return  "{\"status\"=" + status + 
+                        ", \"operacao=\"" + '\'' + operacao + '\'' +
+                        ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
         }
     }
