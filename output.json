@@ -1,4 +1,4 @@
-{"operacao":"cadastrarUsuario", "ra":"1112223", "senha":"senhaUTFPR", "nome":"REGINALDO"}
+    {"operacao":"cadastrarUsuario", "ra":"1112223", "senha":"senhaUTFPR", "nome":"REGINALDO"}
 {"operacao":"login", "ra":"1112223", "senha":"senhaUTFPR"}
 {"operacao":"localizarUsuario", "token":"1112223", "ra":"1112223"}
 {"operacao":"editarUsuario", "token":"1112223", "usuario":{"ra":"1112223", "senha":"senhaUTFPR", "nome":"FELIX"}}
@@ -51,3 +51,47 @@
 {"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"2524198", "senha":"senhaUTFPR", "nome":"ABACATE"}}
 {"operacao":"listarUsuarios", "token":"2524198"}
 {"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"cadastrarUsuario", "ra":"2524198", "senha":"senhaUTFPR", "nome":"RUHAN"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"wqfttx67"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"logout", "token":""}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"cadastrarUsuario", "ra":"2524198", "senha":"senhaUTFPR", "nome":"SENHAUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"cadastrarUsuario", "ra":"2524198", "senha":"senhaUTFPR", "nome":"RUHAN"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"cadastrarUsuario", "ra":"2524198", "senha":"senhaUTFPR", "nome":"RUHAN"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"2524198", "senha":"senhaUTFPR", "nome":"NOTRUHAN"}}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"localizarCategoria", "token":"2524198", "id":1}
+{"operacao":"localizarCategoria", "token":"2524198", "id":4}
+{"operacao":"excluirUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"listarUsuarios", "token":"2524198"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"cadastrarUsuario", "ra":"2524198", "senha":"senhaUTFPR", "nome":"SENHAUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524189"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"2524198", "senha":"senhaUTFPR", "nome":"NOTRUHAN"}}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"localizarCategoria", "token":"2524198", "id":1}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"localizarCategoria", "token":"2524198", "id":27}
+{"operacao":"excluirUsuario", "token":"2524198", "ra":"2524198"}
+{"operacao":"logout", "token":""}

@@ -402,14 +402,18 @@ public class ClientController extends Thread{
                                             System.out.println("JSON enviado: " + jsonString);
                                             logController.writeSimpleLog("SERVER: RESPONSE", "recebida resposta do servidor", true);
                                             String serverResponse = reader.readLine();
-                                            // System.out.println("serverResponse" + serverResponse);
+                                            System.out.println("serverResponse" + serverResponse);
                                             JsonResponse jsonResponse = gson.fromJson(serverResponse, JsonResponse.class);
                                             if (jsonResponse.getStatus() == 200) {
-                                                if (jsonResponse.getOperacao().equals("login")) {
-                                                    user.setToken(jsonResponse.getToken());
-                                                    logController.writeSimpleLog("CLIENT: HOST", "Token recebido: " + jsonResponse.getToken(), true);
+                                                if (!jsonResponse.getToken().isEmpty()) {
+                                                    
+                                                    // if (jsonResponse.getOperacao().equals("login")) {
+                                                        user.setToken(jsonResponse.getToken());
+                                                        logController.writeSimpleLog("CLIENT: HOST", "Token recebido: " + jsonResponse.getToken(), true);
                                                 }
                                             }
+                                            System.out.println(((Object)jsonResponse.getStatus()).getClass().getName());
+                                            // System.out.println(typeof(jsonResponse.getStatus()));    
                                             logController.writeLogJson("SERVER: RESPONSE", "lendo resposta do servidor", jsonString);
                                             System.out.println("JSON recebido: " + jsonResponse.toString());
                                             if(jsonResponse.getOperacao().equals("logout")){
