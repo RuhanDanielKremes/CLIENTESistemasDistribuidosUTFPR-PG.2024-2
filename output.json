@@ -1,0 +1,53 @@
+{"operacao":"cadastrarUsuario", "ra":"1112223", "senha":"senhaUTFPR", "nome":"REGINALDO"}
+{"operacao":"login", "ra":"1112223", "senha":"senhaUTFPR"}
+{"operacao":"localizarUsuario", "token":"1112223", "ra":"1112223"}
+{"operacao":"editarUsuario", "token":"1112223", "usuario":{"ra":"1112223", "senha":"senhaUTFPR", "nome":"FELIX"}}
+{"operacao":"excluirUsuario", "token":"1112223", "ra":"1112223"}
+{"operacao":"cadastrarUsuario", "ra":"1234567", "senha":"senhaUTFPR", "nome":"USER"}
+{"operacao":"login", "ra":"1234567", "senha":"senhaUTFPR"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"1234567"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"1234567"}
+{"operacao":"login", "ra":"1234567", "senha":"senhaUTFPR"}
+{"operacao":"localizarUsuario", "token":"1234567", "ra":"1234567"}
+{"operacao":"localizarUsuario", "token":"1234567", "ra":"2524198"}
+{"operacao":"editarUsuario", "token":"1234567", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"GEORGIA"}}
+{"operacao":"listarCategorias", "token":"1234567"}
+{"operacao":"localizarCategoria", "token":"1234567", "id":1}
+{"operacao":"listarUsuarioCategorias", "token":"1234567", "ra":"null"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"salvarCategoria", "token":"2524198", "categoria": { "id":0, "nome":"GENERAL"}}
+{"operacao":"salvarAviso", "token":"2524198", "aviso": { "id":0, "titulo":"CLIMA", "descricao":"CHUVA", "categoria":"1"}}
+{"operacao":"login", "ra":"1234567", "senha":"senhaUTFPR"}
+{"operacao":"listarCategorias", "token":"1234567"}
+{"operacao":"localizarCategoria", "token":"1234567", "id":1}
+{"operacao":"cadastrarUsuarioCategoria", "token":"1234567", "ra":"null", "id":1}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"salvarCategoria", "token":"2524198", "categoria": { "id":1, "nome":"NOTGENERAL"}}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"salvarCategoria", "token":"2524198", "categoria": { "id":0, "nome":"CLIMATE"}}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"excluirCategoria", "token":"2524198", "id":1}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"excluirCategoria", "token":"2524198", "id":2}
+{"operacao":"listarCategorias", "token":"2524198"}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"logout", "token":""}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"1234567", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"login", "ra":"2524198", "senha":"senhaUTFPR"}
+{"operacao":"editarUsuario", "token":"2524198", "usuario":{"ra":"2524198", "senha":"senhaUTFPR", "nome":"ABACATE"}}
+{"operacao":"listarUsuarios", "token":"2524198"}
+{"operacao":"localizarUsuario", "token":"2524198", "ra":"2524198"}

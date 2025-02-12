@@ -95,7 +95,7 @@ public class JsonResponse {
                         ", \"mensagem\"=" + '\'' + mensagem + '\'' +
                         '}';
             case "login":
-                if (this.status == 201) {
+                if (this.status == 200) {
                     return "{\"status\"=" + status +
                             ", token=" + '\'' + token + '\'' +
                             '}';
@@ -239,11 +239,7 @@ public class JsonResponse {
                 returnToStringUsers = "{\"status\"=" + status + 
                         ", \"operacao=\"" + '\'' + operacao + '\''
                         + ", \"usuarios\"=[";
-                if (usuarios == null) {
-                    returnToStringUsers += "]}";
-                    return returnToStringUsers;
-                }
-                if (usuarios.isEmpty()) {
+                if (usuarios == null || usuarios.isEmpty()) {
                     returnToStringUsers += "]}";
                     return returnToStringUsers;
                 }
@@ -263,9 +259,8 @@ public class JsonResponse {
                         '}';
                 }
                 return "{\"status\"=" + status + 
-                        ", \"operacao=\"" + '\'' + operacao + '\'' +
-                        ", \"usuarios\"=" + usuarios.toString() +
-                        '}';
+                        ", \"operacao=\"" + '\'' + operacao + '\''
+                        + ", \"usuario\"=" + usuarios.get(0).toString() + "}";
             case "excluirUsuario":
                 if (status != 201) {
                 return "{\"status\"=" + status + 

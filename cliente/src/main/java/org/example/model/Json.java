@@ -151,7 +151,7 @@ public class Json {
                 return "{\"operacao\":\"" + operacao + "\"" + 
                         ", \"token\":\"" + token + "\"" +
                         ", \"usuario\":{" +
-                        ", \"ra\":\"" + ra + "\"" +
+                        "\"ra\":\"" + ra + "\"" +
                         ", \"senha\":\"" + senha + "\"" +
                         ", \"nome\":\"" + nome + "\"" + "}}";
             case "salvarCategoria":

@@ -66,8 +66,25 @@ public class User {
         this.token = token;
     }
 
-    public void printUser() {
-        System.out.println("ID: " + this.id + "\n\tName: " + this.name + ", RA: " + this.ra + ", Password: " + this.password + ", Role: " + this.role + "\n");
+    @Override
+    public String toString() {
+        String returnString;
+        returnString = "{";
+        returnString = id == 0 ? "" : "ID: " + id;
+        returnString = name == "" ? returnString
+                : returnString.length() > 1 ? returnString + ", \"Name\": \"" + name + "\""
+                        : "\"Name\": \"" + name + "\"";
+        returnString = ra == "" ? returnString
+                : returnString.length() > 1 ? returnString + ", \"RA\": \"" + ra + "\""
+                        : "\"RA\": \"" + ra + "\"";
+        returnString = password == "" ? returnString
+                : returnString.length() > 1 ? returnString + ", \"Password\": \"" + password + "\""
+                        : "\"Password\": \"" + password + "\"";
+        returnString = role == "" ? returnString
+                : returnString.length() > 1 ? returnString + ", \"Role\": \"" + role + "\""
+                        : "\"Role\": \"" + role + "\"";
+        returnString += "}";
+        return returnString;
     }
 
 }
