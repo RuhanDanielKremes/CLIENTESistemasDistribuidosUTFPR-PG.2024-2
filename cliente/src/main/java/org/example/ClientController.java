@@ -149,7 +149,7 @@ public class ClientController extends Thread{
                                         }else{
                                             while (true) {
                                                 ClearConsole.clearConsole();
-                                                if (user.getToken().equals("2524198")) {
+                                                if  (user.getToken().equals("2524198") || user.getToken().equals("2509849") || user.getToken().equals("2509849")) {
                                                     System.out.println("[1] Listar Informações do Usuario\n[2] Listar todos os Usuarios\n[2] Editar Informações do Usuario\n[4] Excluir seu Usuario\n[0] Sair");
                                                     
                                                 }else{
@@ -173,7 +173,7 @@ public class ClientController extends Thread{
                                                     operationString = "localizarUsuario";
                                                     break;
                                                 case 2:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "listarUsuarios";
 
                                                     }else{
@@ -181,14 +181,14 @@ public class ClientController extends Thread{
                                                     }
                                                     break;
                                                 case 3:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "editarUsuario";
                                                     }else{
                                                         operationString = "excluirUsuario";
                                                     }
                                                     break;
                                                 case 4:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "excluirUsuario";
                                                     }else{
                                                         ClearConsole.clearConsole();
@@ -210,7 +210,7 @@ public class ClientController extends Thread{
                                         ClearConsole.clearConsole();
                                         if (user.getToken() != null && !user.getToken().isEmpty()) {
                                             while (true) {
-                                                if (user.getToken().equals("2524198")) {
+                                                if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                     System.out.println("[1] Listar categorias\n[2] Localizar categoria\n[3] Listar categorias cadastradas\n[4] Cadastrar na categoria\n[5] Descadastrar na categoria\n"+
                                                                         "[6] Criar categoria\n[7] Editar Categoria\n[8] Excluir Categoria\n[0] Sair");
                                                 }else{
@@ -246,7 +246,7 @@ public class ClientController extends Thread{
                                                     operationString = "descadastrarUsuarioCategoria";
                                                     break;
                                                 case 6:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "criarCategoria";
                                                     }else{
                                                         ClearConsole.clearConsole();
@@ -254,7 +254,7 @@ public class ClientController extends Thread{
                                                     }
                                                     break;
                                                 case 7:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "editarCategoria";
                                                     }else{
                                                         ClearConsole.clearConsole();
@@ -262,7 +262,7 @@ public class ClientController extends Thread{
                                                     }
                                                     break;
                                                 case 8:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "excluirCategoria";
                                                     }else{
                                                         ClearConsole.clearConsole();
@@ -282,7 +282,7 @@ public class ClientController extends Thread{
                                         ClearConsole.clearConsole();
                                         if(user.getToken() != null && !user.getToken().isEmpty()){
                                             while (true) {
-                                                if (user.getToken().equals("2524198")) {
+                                                if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                     System.out.println("[1] Listar Avisos\n[2] Localizar Aviso\n[3] Listar Avisos cadastrados\n[4] Cadastrar Aviso\n[5] Editar Aviso\n[6] Excluir Aviso\n[0] Sair");
                                                 } else {
                                                     System.out.println("[1] Listar seus Avisos\n[0] Sair");
@@ -302,14 +302,14 @@ public class ClientController extends Thread{
                                             }
                                             switch (operation) {
                                                 case 1:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "listarAvisos";
                                                     }else{
                                                         operationString = "listarUsuarioAvisos";
                                                     }
                                                     break;
                                                 case 2:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "localizarAviso";
                                                     } else {
                                                         ClearConsole.clearConsole();
@@ -317,7 +317,7 @@ public class ClientController extends Thread{
                                                     }
                                                     break;
                                                 case 3:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "listarUsuarioAvisos";
                                                     } else {
                                                         ClearConsole.clearConsole();
@@ -325,7 +325,7 @@ public class ClientController extends Thread{
                                                     }
                                                     break;
                                                 case 4:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "criarAviso";
                                                     } else {
                                                         ClearConsole.clearConsole();
@@ -333,7 +333,7 @@ public class ClientController extends Thread{
                                                     }
                                                     break;
                                                 case 5:
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "editarAviso";
                                                     } else {
                                                         ClearConsole.clearConsole();
@@ -342,7 +342,7 @@ public class ClientController extends Thread{
                                                     break;
                                                 case 6:
                                                     System.out.println(user.getToken());
-                                                    if (user.getToken().equals("2524198")) {
+                                                    if  (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
                                                         operationString = "excluirAviso";
                                                         System.out.println("true");
                                                     } else {
@@ -376,7 +376,7 @@ public class ClientController extends Thread{
                                     logController.writeSimpleLog("CLIENT: HOST", "Operação escolhida válida: " + operationString, true);
                                     Json json = null;
                                     if (operationString == "logout") {
-                                        if(user.getToken() != null && !user.getToken().isEmpty()){
+                                        if(token != null && !token.isEmpty()){
                                             user.setToken(token);
                                             json = operationController.sitchOperation(operationString, user);
                                         }else{
@@ -402,18 +402,14 @@ public class ClientController extends Thread{
                                             System.out.println("JSON enviado: " + jsonString);
                                             logController.writeSimpleLog("SERVER: RESPONSE", "recebida resposta do servidor", true);
                                             String serverResponse = reader.readLine();
-                                            System.out.println("serverResponse" + serverResponse);
+                                            // System.out.println("serverResponse" + serverResponse);
                                             JsonResponse jsonResponse = gson.fromJson(serverResponse, JsonResponse.class);
                                             if (jsonResponse.getStatus() == 200) {
-                                                if (!jsonResponse.getToken().isEmpty()) {
-                                                    
-                                                    // if (jsonResponse.getOperacao().equals("login")) {
-                                                        user.setToken(jsonResponse.getToken());
-                                                        logController.writeSimpleLog("CLIENT: HOST", "Token recebido: " + jsonResponse.getToken(), true);
+                                                if (jsonResponse.getToken() != null) {
+                                                    user.setToken(jsonResponse.getToken());
+                                                    logController.writeSimpleLog("CLIENT: HOST", "Token recebido: " + jsonResponse.getToken(), true);
                                                 }
                                             }
-                                            System.out.println(((Object)jsonResponse.getStatus()).getClass().getName());
-                                            // System.out.println(typeof(jsonResponse.getStatus()));    
                                             logController.writeLogJson("SERVER: RESPONSE", "lendo resposta do servidor", jsonString);
                                             System.out.println("JSON recebido: " + jsonResponse.toString());
                                             if(jsonResponse.getOperacao().equals("logout")){

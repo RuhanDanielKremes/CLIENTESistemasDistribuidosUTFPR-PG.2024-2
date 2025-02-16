@@ -27,7 +27,7 @@ import org.example.model.User;
 
 import com.google.gson.Gson;
 
-public class SignUp extends JFrame {
+public class UserEditView extends JFrame {
     
     private boolean raLenght;
     private boolean raTypeFormat;
@@ -36,9 +36,11 @@ public class SignUp extends JFrame {
     private boolean nameLenght;
     private boolean nameTypeFormat;
     private boolean retypePassword;
+    
+    public UserEditView(Socket socket, BufferedReader in, PrintWriter out, User user) {
+        {
 
-    public SignUp(Socket socket, BufferedReader in, PrintWriter out){
-        setTitle("SignUp");
+        setTitle("Editar Usuário");
         setSize(400,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -46,7 +48,6 @@ public class SignUp extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(Box.createVerticalGlue());
-
         JPanel nameLine = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel raLine = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel passwordLine = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -160,20 +161,21 @@ public class SignUp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 if (raLenght && raTypeFormat && passwordLenght && passwordTypeFormat && nameLenght && nameTypeFormat && retypePassword) {
-                    User user = new User();
-                    user.setName(nameField.getText());
-                    user.setRa(raField.getText());
-                    user.setPassword(new String(passwordField.getPassword()));
+                    User useraux = new User();
+                    useraux.setToken(user.getToken());
+                    useraux.setName(nameField.getText());
+                    useraux.setRa(raField.getText());
+                    useraux.setPassword(new String(passwordField.getPassword()));
                     try{
-                        Json json = new OperationController().cadastrarUsuario(user);
+                        Json json = new OperationController().editUser(useraux);
                         System.out.println("Client:" + json.toString());
                         out.println(json.toString());
                         out.flush();
                         JsonResponse jsonResponse = new Gson().fromJson(in.readLine(), JsonResponse.class);
                         System.out.println("Server:" + jsonResponse);
                         if(jsonResponse.getStatus() == 201){
-                            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso");
-                            new Login(socket, in, out);
+                            JOptionPane.showMessageDialog(null, "Usuário editado com sucesso");
+                            new Option(socket, in, out, user);
                             dispose();
                         }else{
                             JOptionPane.showMessageDialog(null, jsonResponse.getMensagem());
@@ -199,5 +201,6 @@ public class SignUp extends JFrame {
         add(panel);
         
         setVisible(true);
+    }
     }
 }

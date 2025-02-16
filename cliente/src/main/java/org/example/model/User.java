@@ -3,18 +3,18 @@ package org.example.model;
 public class User {
 
     private int id;
-    private String name;
+    private String nome;
     private String ra;
-    private String password;
+    private String senha;
     private String role;
     private String token;
 
     public User() {
         this.id = 0;
-        this.name = "";
+        this.nome = "";
         this.ra = "";
-        this.password = "";
-        this.role = "user";
+        this.senha = "";
+        this.role = "";
         this.token = "";
     }
 
@@ -23,7 +23,7 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return nome;
     }
 
     public String getRa() {
@@ -31,7 +31,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return senha;
     }
 
     public String getRole() {
@@ -43,7 +43,7 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nome = name;
     }
 
     public void setRa(String ra) {
@@ -51,7 +51,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.senha = password;
     }
 
     public void setRole(String role) {
@@ -70,19 +70,19 @@ public class User {
     public String toString() {
         String returnString;
         returnString = "{";
-        returnString = id == 0 ? "" : "ID: " + id;
-        returnString = name == "" ? returnString
-                : returnString.length() > 1 ? returnString + ", \"Name\": \"" + name + "\""
-                        : "\"Name\": \"" + name + "\"";
+        returnString = id == 0 ? returnString : returnString + "id: " + id;
+        returnString = nome == "" ? returnString
+                : returnString.length() > 1 ? returnString + ", \"nome\": \"" + nome + "\""
+                        : returnString + "\"nome\": \"" + nome + "\"";
         returnString = ra == "" ? returnString
-                : returnString.length() > 1 ? returnString + ", \"RA\": \"" + ra + "\""
-                        : "\"RA\": \"" + ra + "\"";
-        returnString = password == "" ? returnString
-                : returnString.length() > 1 ? returnString + ", \"Password\": \"" + password + "\""
-                        : "\"Password\": \"" + password + "\"";
+                : returnString.length() > 1 ? returnString + ", \"ra\": \"" + ra + "\""
+                        : returnString + "\"ra\": \"" + ra + "\"";
+        returnString = senha == "" ? returnString
+                : returnString.length() > 1 ? returnString + ", \"senha\": \"" + senha + "\""
+                        : returnString + "\"senha\": \"" + senha + "\"";
         returnString = role == "" ? returnString
-                : returnString.length() > 1 ? returnString + ", \"Role\": \"" + role + "\""
-                        : "\"Role\": \"" + role + "\"";
+                : returnString.length() > 1 ? returnString + ", \"role\": \"" + role + "\""
+                        : returnString + "\"role\": \"" + role + "\"";
         returnString += "}";
         return returnString;
     }

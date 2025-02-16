@@ -159,19 +159,19 @@ public class OperationController {
         }
     }
 
-    public Json cadastrarUsuario() throws IOException{
+    public Json cadastrarUsuario() throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrando usuário", true);
         User user = new User();
         String nome;
         do {
             ClearConsole.clearConsole();// Código ANSI para limpar tela
-            
+
             System.out.print("Digite o nome do usuário: ");
             nome = System.console().readLine();
             nome = nome.toUpperCase();
             if (nome.length() < 50 && nome.matches("^[A-Z]+$")) {
                 user.setName(nome);
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Nome inválido", true);
                 System.out.println("Nome inválido");
             }
@@ -183,7 +183,7 @@ public class OperationController {
             if (ra.length() != 7) {
                 logController.writeSimpleLog("CLIENT: OPERATION", "RA inválido", true);
                 System.out.println("RA inválido");
-            }else{
+            } else {
                 user.setRa(ra);
             }
         } while (user.getRa() == "");
@@ -194,10 +194,21 @@ public class OperationController {
             if (senha.length() < 8 || senha.length() > 20) {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Senha inválida", true);
                 System.out.println("Senha inválida");
-            }else{
+            } else {
                 user.setPassword(senha);
             }
         } while (user.getPassword() == "");
+        Json json = new Json();
+        json.setOperacao("cadastrarUsuario");
+        json.setNome(user.getName());
+        json.setRa(user.getRa());
+        json.setSenha(user.getPassword());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Cadastro do usuario pronto para ser enviado", true);
+        return json;
+    }
+    
+    public Json cadastrarUsuario(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrando usuário", true);
         Json json = new Json();
         json.setOperacao("cadastrarUsuario");
         json.setNome(user.getName());
@@ -234,6 +245,16 @@ public class OperationController {
                 user.setPassword(senha);
             }
         } while (user.getPassword() == "");
+        Json json = new Json();
+        json.setOperacao("login");
+        json.setRa(user.getRa());
+        json.setSenha(user.getPassword());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Login de usuario pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json login(User user) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Realizando login", true);
         Json json = new Json();
         json.setOperacao("login");
         json.setRa(user.getRa());
@@ -372,27 +393,17 @@ public class OperationController {
         Json json = new Json();
         json.setOperacao("localizarUsuario");
         json.setToken(user.getToken());
-        do {
-            System.out.print("Digite o RA do usuário: ");
-            String ra = System.console().readLine();
-            if (ra.length() != 7) {
-                logController.writeSimpleLog("CLIENT: OPERATION", "RA inválido", true);
-                System.out.println("RA inválido");
-            }else{
-                json.setRa(ra);
-                break;
-            }
-        } while (true);
+        json.setRa(user.getToken());
         logController.writeSimpleLog("CLIENT: OPERATION", "Localizar usuario pronto para ser enviado", true);
         return json;
     }
 
-    public Json excluirUsuario(User user) throws IOException{
+    public Json excluirUsuario(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Excluindo Usuarios");
         Json json = new Json();
         json.setOperacao("excluirUsuario");
         json.setToken(user.getToken());
-        if (user.getToken().equals("2524198")) {   
+        if (user.getToken().equals("2524198") || user.getToken().equals("2509849")) {
             int opcao;
             while (true) {
                 System.out.println("Deseja deletar o seu usuario[1] ou de outra pessoa[2]");
@@ -401,7 +412,7 @@ public class OperationController {
                     opcao = Integer.parseInt(opcaoString);
                     if (opcao == 1) {
                         json.setRa(user.getRa());
-                    }else{
+                    } else {
                         String ra;
                         do {
                             System.out.print("Digite o RA do usuário: ");
@@ -409,20 +420,30 @@ public class OperationController {
                             if (ra.length() != 7) {
                                 logController.writeSimpleLog("CLIENT: OPERATION", "RA inválido", true);
                                 System.out.println("RA inválido");
-                            }else{
+                            } else {
                                 json.setRa(ra);
                             }
                         } while (json.getRa() == "");
                     }
                     break;
-                }else{
+                } else {
                     logController.writeSimpleLog("CLIENT: OPERATION", "Opção inválida", true);
                     System.out.println("Opção inválida");
                 }
             }
-        }else{
+        } else {
             json.setRa(user.getRa());
         }
+        logController.writeSimpleLog("CLIENT: OPERATION", "Excluir usuario pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json excluirUsuario(String token, String ra) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Excluindo Usuarios", true);
+        Json json = new Json();
+        json.setOperacao("excluirUsuario");
+        json.setToken(token);
+        json.setRa(ra);
         logController.writeSimpleLog("CLIENT: OPERATION", "Excluir usuario pronto para ser enviado", true);
         return json;
     }
@@ -475,6 +496,15 @@ public class OperationController {
         json.setSenha(user.getPassword());
         logController.writeSimpleLog("CLIENT: OPERATION", "Editar usuario pronto para ser enviado", true);
         return json;
+    }
+
+    public Json editUser(User user) {
+        Json json = new Json();
+        json.setOperacao("editarUsuario");
+        json.setToken(user.getToken());
+        user.setToken(null);
+        json.setUsuario(user);
+        return json;        
     }
 
     public Json criarCategoria(User user) throws IOException{

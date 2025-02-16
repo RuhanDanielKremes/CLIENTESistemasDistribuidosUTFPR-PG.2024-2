@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.Socket;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,7 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.example.ClearConsole;
+
 public class Init extends JFrame{
+
+    private Socket socket;
     
     public Init(){
         setTitle("Init");
@@ -42,10 +47,19 @@ public class Init extends JFrame{
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                // pass to a variable the ip and port
-                // ipField.getText();
-                new Method();
-                dispose();
+                while (true) {
+                    try {
+                        String inputString = portField.getText();
+                        String socketNumber = ipField.getText();
+                        System.out.println("IP: " + socketNumber + " PORTA: " + inputString);
+                        socket = new Socket(socketNumber, Integer.parseInt(inputString));
+                        new Method(socket);
+                        dispose();
+                        break;
+                    } catch (Exception er) {
+                        System.out.println("Opção inválida: " + er.getMessage());
+                    }
+                }
             }
         });
         send.setAlignmentX(Component.CENTER_ALIGNMENT);

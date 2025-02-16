@@ -21,6 +21,8 @@ public class Json {
     private Category categorias;
     @Expose
     private List<Warnings> avisos;
+    @Expose
+    private User usuario;
 
     // Getters e setters
     public String getOperacao() {
@@ -87,6 +89,14 @@ public class Json {
         this.avisos = avisos;
     }
 
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
         switch (this.operacao) {
@@ -148,12 +158,18 @@ public class Json {
                         ", \"token\":\"" + token + "\"" +
                         ", \"ra\":\"" + ra + "\"" + '}';
             case "editarUsuario":
-                return "{\"operacao\":\"" + operacao + "\"" + 
-                        ", \"token\":\"" + token + "\"" +
-                        ", \"usuario\":{" +
-                        "\"ra\":\"" + ra + "\"" +
-                        ", \"senha\":\"" + senha + "\"" +
-                        ", \"nome\":\"" + nome + "\"" + "}}";
+                if (usuario == null) {   
+                    return "{\"operacao\":\"" + operacao + "\"" + 
+                    ", \"token\":\"" + token + "\"" +
+                    ", \"usuario\":{" +
+                    "\"ra\":\"" + ra + "\"" +
+                    ", \"senha\":\"" + senha + "\"" +
+                    ", \"nome\":\"" + nome + "\"" + "}}";
+                } else {
+                    return "{\"operacao\":\"" + operacao + "\"" + 
+                    ", \"token\":\"" + token + "\"" +
+                    ", \"usuario\":" + usuario.toString() + "}";
+                }
             case "salvarCategoria":
                 return "{\"operacao\":\"" + operacao + "\"" + 
                         ", \"token\":\"" + token + "\"" +

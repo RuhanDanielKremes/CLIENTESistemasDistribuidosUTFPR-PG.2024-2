@@ -23,12 +23,15 @@ public class Category extends JFrame{
 
         panel.add(Box.createVerticalGlue());
 
+        JButton listSubscription = new JButton("Listar Inscrições");
+        JButton subscribe = new JButton("Inscrever-se");
+        JButton unsubscribe = new JButton("Desinscrever-se");
         JButton back = new JButton("Voltar");
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 // TODO
-                new Option();
+                // new Option();
                 dispose();
             }
         });
