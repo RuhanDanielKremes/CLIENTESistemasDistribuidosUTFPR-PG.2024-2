@@ -42,23 +42,23 @@ public class UserView extends JFrame {
             listAllUsersInformationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             JButton deleteUser = new JButton("Deletar Usuário");
             deleteUser.setAlignmentX(Component.CENTER_ALIGNMENT);
-            deleteUser.addActionListener(e -> {
+            deleteUser.addActionListener(_ -> {
                 new UserDeleteView(socket, in, out, user);
                 dispose();
             });
             JButton editarUser = new JButton("Editar Usuário");
             editarUser.setAlignmentX(Component.CENTER_ALIGNMENT);
-            editarUser.addActionListener(e -> {
+            editarUser.addActionListener(_ -> {
                 new UserEditView(socket, in, out, user);
                 dispose();
             });
             JButton back = new JButton("Voltar");
             back.setAlignmentX(Component.CENTER_ALIGNMENT);
-            back.addActionListener(e -> {
+            back.addActionListener(_ -> {
                 new Option(socket, in, out, user);
                 dispose();
             });
-            listUserInformationButton.addActionListener(e -> {
+            listUserInformationButton.addActionListener(_ -> {
                 OperationController operationController = new OperationController();
                 try {
                     Json json = operationController.localizarUsuario(user);
@@ -81,7 +81,7 @@ public class UserView extends JFrame {
                     System.out.println("Erro ao listar usuários" + ex.getMessage());
                 }
             });
-            listAllUsersInformationButton.addActionListener(e -> {
+            listAllUsersInformationButton.addActionListener(_ -> {
                 OperationController operationController = new OperationController();
                 try {
                     Json json = operationController.listarUsuarios(user);

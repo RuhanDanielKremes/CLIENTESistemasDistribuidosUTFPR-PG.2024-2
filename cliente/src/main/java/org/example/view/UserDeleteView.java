@@ -43,7 +43,7 @@ public class UserDeleteView extends JFrame {
             new Option(socket, in, out, user);
             frame.dispose();
         });
-        deleteUserButton.addActionListener(e -> {
+        deleteUserButton.addActionListener(_ -> {
             OperationController operationController = new OperationController();
             try {
                 Json json = operationController.excluirUsuario(user.getToken(), raField.getText());
