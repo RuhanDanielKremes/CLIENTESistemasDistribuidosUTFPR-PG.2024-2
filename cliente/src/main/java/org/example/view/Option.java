@@ -11,9 +11,15 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.example.OperationController;
+import org.example.model.Json;
+import org.example.model.JsonResponse;
 import org.example.model.User;
+
+import com.google.gson.Gson;
 
 public class Option extends JFrame {
 
@@ -43,7 +49,22 @@ public class Option extends JFrame {
             logout.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO
+                    try {
+                        Json json = new OperationController().logout(user);
+                        System.out.println("Client: " + json.toString());
+                        out.println(json.toString());
+                        out.flush();
+                        String response = in.readLine();
+                        System.out.println("Server: " + response);
+                        JsonResponse jsonResponse = new Gson().fromJson(response, JsonResponse.class);
+                        JOptionPane.showMessageDialog(null, jsonResponse.getMensagem());
+                        user.setToken(null);
+                        if (jsonResponse.getStatus() == 200) {
+                            new Login(socket, in, out);
+                        }
+                    } catch (Exception e10) {
+                        e10.printStackTrace();
+                    }
                     // new Method();
                     dispose();
                 }
@@ -55,7 +76,7 @@ public class Option extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO
-                    new Category();
+                    new CategoryView(socket, in, out, user);
                     dispose();
                 }
             });

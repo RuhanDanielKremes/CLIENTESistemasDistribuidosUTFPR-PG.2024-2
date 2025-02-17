@@ -52,7 +52,7 @@ public class Init extends JFrame{
                         String socketNumber = ipField.getText();
                         System.out.println("IP: " + socketNumber + " PORTA: " + inputString);
                         socket = new Socket(socketNumber, Integer.parseInt(inputString));
-                        new Method(socket);
+                        new Method(socket, null, null);
                         dispose();
                         break;
                     } catch (Exception er) {

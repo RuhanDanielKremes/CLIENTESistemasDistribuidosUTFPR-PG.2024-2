@@ -31,7 +31,7 @@ public class Inscription extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 // TODO
-                new Category();
+                // new Category();
                 dispose();
             }
         });
@@ -48,7 +48,7 @@ public class Inscription extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 // TODO
-                new Category();
+                // new Category();
                 dispose();
             }
         });

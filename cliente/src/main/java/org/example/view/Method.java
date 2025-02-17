@@ -21,9 +21,15 @@ public class Method extends JFrame {
     BufferedReader in;
     PrintWriter out;
 
-    public Method(Socket socket) {
+    public Method(Socket socket, BufferedReader a, PrintWriter b) {
         this.socket = socket;
         try {
+            if (a != null) {
+                a.close();
+            }
+            if (b != null) {
+                b.close();
+            }
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {

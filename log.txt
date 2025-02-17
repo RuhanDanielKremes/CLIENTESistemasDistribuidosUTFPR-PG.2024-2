@@ -1,0 +1,60 @@
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Realizando login
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Login de usuario pronto para ser enviado
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Listando categorias do usuário
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Listar categorias do usuario pronto para ser enviado
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Listando avisos
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Listar avisos pronto para ser enviado
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Listando avisos
+[2025-02-17 12:20:42] Operation: CLIENT: OPERATION
+	Listar avisos pronto para ser enviado
+[2025-02-17 12:20:52] Operation: CLIENT: OPERATION
+	Localizando categoria
+[2025-02-17 12:20:52] Operation: CLIENT: OPERATION
+	Localizar categoria pronto para ser enviado
+[2025-02-17 12:21:34] Operation: CLIENT: OPERATION
+	Localizando categoria
+[2025-02-17 12:21:34] Operation: CLIENT: OPERATION
+	Localizar categoria pronto para ser enviado
+[2025-02-17 12:21:39] Operation: CLIENT: OPERATION
+	Excluindo Categoria
+[2025-02-17 12:21:39] Operation: CLIENT: OPERATION
+	Excluir categoria pronto para ser enviado
+[2025-02-17 12:21:47] Operation: CLIENT: OPERATION
+	Listando avisos
+[2025-02-17 12:21:47] Operation: CLIENT: OPERATION
+	Listar avisos pronto para ser enviado
+[2025-02-17 12:21:55] Operation: CLIENT: OPERATION
+	Listando avisos
+[2025-02-17 12:21:55] Operation: CLIENT: OPERATION
+	Listar avisos pronto para ser enviado
+[2025-02-17 12:22:03] Operation: CLIENT: OPERATION
+	Excluindo Aviso
+[2025-02-17 12:22:03] Operation: CLIENT: OPERATION
+	Excluir aviso pronto para ser enviado
+[2025-02-17 12:22:13] Operation: CLIENT: OPERATION
+	Excluindo Categoria
+[2025-02-17 12:22:13] Operation: CLIENT: OPERATION
+	Excluir categoria pronto para ser enviado
+[2025-02-17 12:23:18] Operation: CLIENT: OPERATION
+	Listando avisos
+[2025-02-17 12:23:18] Operation: CLIENT: OPERATION
+	Listar avisos pronto para ser enviado
+[2025-02-17 12:23:25] Operation: CLIENT: OPERATION
+	Excluindo Categoria
+[2025-02-17 12:23:25] Operation: CLIENT: OPERATION
+	Excluir categoria pronto para ser enviado
+[2025-02-17 12:25:12] Operation: CLIENT: OPERATION
+	Excluindo Categoria
+[2025-02-17 12:25:12] Operation: CLIENT: OPERATION
+	Excluir categoria pronto para ser enviado
+[2025-02-17 12:25:30] Operation: CLIENT: OPERATION
+	Realizando logout
+[2025-02-17 12:25:30] Operation: CLIENT: OPERATION
+	Logout do usuario pronto para ser enviado

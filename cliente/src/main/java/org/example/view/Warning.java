@@ -6,25 +6,20 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.rmi.server.Operation;
+import java.util.ArrayList;
 import java.util.List;
+import org.example.model.Category;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import org.example.OperationController;
 import org.example.model.Json;
 import org.example.model.JsonResponse;
 import org.example.model.User;
-import org.example.model.Warnings;
-import org.example.model.Avisos;
-import org.example.model.Category;
 
 import com.google.gson.Gson;
 
@@ -55,30 +50,62 @@ public class Warning extends JFrame{
                     System.out.println("Server: " + response);
                     Gson gson = new Gson();
                     JsonResponse jsonResponse = gson.fromJson(response, JsonResponse.class);
-                    List<Avisos> warnings = jsonResponse.getAvisos();
-                    try {
-                        json = operationController.listarCategorias(user);
-                        System.out.println("Client: " + json.toString());
-                        out.println(json.toString());
-                        out.flush();
-                        String responseCategory = in.readLine();
-                        System.out.println("Server: " + responseCategory);
-                        JsonResponse jsonResponseCategory = gson.fromJson(responseCategory, JsonResponse.class);
-                        new WarningListView(socket, in, out, user, jsonResponse.getAvisos(), jsonResponse.getCategorias());
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
+                    List<Category> categories = new ArrayList<>();
+                    for (int i = 0; i < jsonResponse.getAvisos().size(); i++) {
+                        if (categories.size() == 0) {
+                            categories.add(jsonResponse.getAvisos().get(i).getCategory());
+                        }
+                        for (int j = 0; j < categories.size(); j++) {
+                            if (categories.get(j).getId() != jsonResponse.getAvisos().get(i).getCategory().getId()) {
+                                categories.add(jsonResponse.getAvisos().get(i).getCategory());
+                                break;
+                            }
+                        }
                     }
+                    new WarningListView(socket, in, out, user, jsonResponse.getAvisos(), categories);
+                    dispose();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                // new WarningListView();
+            }
+        });
+        listAllWarnings.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton findWarning = new JButton("Procurar Aviso");
+        findWarning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new WarningCRUD(socket, in, out, user, "findWarning");
+                dispose();
+            }
+        }); 
+        findWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton createWarning = new JButton("Criar Aviso");
+        createWarning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new CategoryCrud(socket, in, out, user, "createWarning");
                 dispose();
             }
         });
-        JButton findWarning = new JButton("Procurar Aviso");
-        JButton createWarning = new JButton("Criar Aviso");
+        createWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton deleteWarning = new JButton("Deletar Aviso");
+        deleteWarning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new WarningCRUD(socket, in, out, user, "deleteWarning");
+                dispose();
+            }
+        });
+        deleteWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton editWarning = new JButton("Editar Aviso");
+        editWarning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new CategoryCrud(socket, in, out, user, "editWarning");
+                dispose();
+            }
+        });
+        editWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
         JButton back = new JButton("Voltar");
@@ -91,7 +118,11 @@ public class Warning extends JFrame{
         });
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
+        panel.add(listAllWarnings);
+        panel.add(findWarning);
+        panel.add(createWarning);
+        panel.add(deleteWarning);
+        panel.add(editWarning);
         panel.add(back);
         
         panel.add(Box.createVerticalGlue());

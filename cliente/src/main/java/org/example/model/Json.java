@@ -133,13 +133,13 @@ public class Json {
                 return "{\"operacao\":\"" + operacao + "\"" + 
                         ", \"token\":\"" + token + "\"" +
                         ", \"ra\":\"" + ra + "\"" +
-                        ", \"id\":" + id +
+                        ", \"categoria\":" + id +
                         '}';
             case "descadastrarUsuarioCategoria":
                 return "{\"operacao\":\"" + operacao + "\"" + 
                         ", \"token\":\"" + token + "\"" +
                         ", \"ra\" : \"" + ra + "\"" +
-                        ", \"id\":" + id +
+                        ", \"categoria\":" + id +
                         '}';
             case "listarAvisos":
                 return "{\"operacao\":\"" + operacao + "\"" + 

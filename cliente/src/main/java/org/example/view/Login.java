@@ -1,6 +1,7 @@
 package org.example.view;
 
 import java.awt.*;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -8,11 +9,16 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import org.example.OperationController;
+import org.example.model.Avisos;
+import org.example.model.Category;
 import org.example.model.Json;
 import org.example.model.JsonResponse;
+import org.example.model.JsonResponseCategoryResponse;
 import org.example.model.User;
 
 import com.google.gson.Gson;
@@ -121,13 +127,12 @@ public class Login extends BaseFrame {
                         if (jsonResp.getToken() != null) {
                             User userResp = new User();
                             userResp.setToken(jsonResp.getToken());
-                            new Option(socket, in, out, userResp);
-                            dispose();
-                        }else{
+                            getWarning(socket, in, out, userResp);
+                        } else {
                             JOptionPane.showMessageDialog(null, "Token não recebido");
                         }
                     } else {
-                        if (jsonResp.getMensagem() != null){
+                        if (jsonResp.getMensagem() != null) {
                             JOptionPane.showMessageDialog(null, jsonResp.getMensagem());
                         }
                     }
@@ -138,14 +143,67 @@ public class Login extends BaseFrame {
             }
         });
         send.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton back = new JButton("Voltar");
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Method(socket, in, out);
+                dispose();
+            }
+        });
+        back.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panel.add(raLine);
         panel.add(passwordLine);
         panel.add(send);
+        panel.add(back);
         panel.add(Box.createVerticalGlue());
 
         add(panel, BorderLayout.CENTER);
 
         setVisible(true);
     }
+    
+    private void getWarning(Socket socket, BufferedReader in, PrintWriter out, User user) {
+        OperationController operationController = new OperationController();
+        try {
+            Json json = operationController.listarUsuarioCategorias(user);
+            System.out.println("Client: " + json.toString());
+            out.println(json.toString());
+            out.flush();
+            String response = in.readLine();
+            System.out.println("Server: " + response);
+            Gson gson = new Gson();
+            JsonResponseCategoryResponse jsonResponseCategoryResponse = gson.fromJson(response,
+                    JsonResponseCategoryResponse.class);
+            List<Avisos> warnings = new ArrayList<>();
+            List<Category> categories = new ArrayList<>();
+            try {
+                for (int i = 0; i < jsonResponseCategoryResponse.getCategorias().size(); i++) {
+                    json = operationController.listarAvisos(user,
+                            jsonResponseCategoryResponse.getCategorias().get(i));
+                    System.out.println("Client: " + json.toString());
+                    out.println(json.toString());
+                    out.flush();
+                    response = in.readLine();
+                    System.out.println("Server: " + response);
+                    JsonResponse jsonResponse = gson.fromJson(response, JsonResponse.class);
+                    for (int j = 0; j < jsonResponse.getAvisos().size(); j++) {
+                        warnings.add(jsonResponse.getAvisos().get(j));
+                        categories.add(jsonResponse.getAvisos().get(j).getCategory());
+                    }
+                }
+                new WarningListView(socket, in, out, user, warnings, categories);
+                dispose();
+            } catch (Exception e2) {
+                JOptionPane.showMessageDialog(null, "Erro ao listar avisos" + e2.getMessage());
+            }
+            JOptionPane.showMessageDialog(null, "Avisos listados com sucesso");
+            dispose();
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar categorias" + e1.getMessage());
+        }
+        ;
+    }
+
 }

@@ -55,7 +55,7 @@ public class OperationController {
             case "editarAviso":
                 return editarAviso(user);
             case "localizarAviso":
-                localizarAvisos(user);
+                return localizarAvisos(user);
             case "excluirAviso":
                 return excluirAviso(user);
             default:
@@ -281,7 +281,7 @@ public class OperationController {
         return json;
     }
 
-    public Json localizarCategoria(User user) throws IOException{
+    public Json localizarCategoria(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Localizando categoria", true);
         Json json = new Json();
         while (true) {
@@ -290,13 +290,23 @@ public class OperationController {
             if (id.matches("^[0-9]+$")) {
                 json.setId(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
         }
         json.setOperacao("localizarCategoria");
         json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Localizar categoria pronto para ser enviado", true);
+        return json;
+    }
+    
+    public Json localizarCategoria(User user, int id) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Localizando categoria", true);
+        Json json = new Json();
+        json.setOperacao("localizarCategoria");
+        json.setToken(user.getToken());
+        json.setId(id);
         logController.writeSimpleLog("CLIENT: OPERATION", "Localizar categoria pronto para ser enviado", true);
         return json;
     }
@@ -310,7 +320,7 @@ public class OperationController {
         return json;
     }
 
-    public Json cadastrarUsuarioCategoria(User user) throws IOException{
+    public Json cadastrarUsuarioCategoria(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrando categoria do usuário", true);
         Json json = new Json();
         while (true) {
@@ -319,18 +329,30 @@ public class OperationController {
             if (id.matches("^[0-9]+$")) {
                 json.setId(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
         }
         json.setOperacao("cadastrarUsuarioCategoria");
         json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrar categoria do usuario pronto para ser enviado",
+                true);
+        return json;
+    }
+    
+    public Json cadastrarUsuarioCategoria(User user, int id) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrando categoria do usuário", true);
+        Json json = new Json();
+        json.setOperacao("cadastrarUsuarioCategoria");
+        json.setToken(user.getToken());
+        json.setId(id);
+        json.setRa(user.getToken());
         logController.writeSimpleLog("CLIENT: OPERATION", "Cadastrar categoria do usuario pronto para ser enviado", true);
         return json;
     }
 
-    public Json descadastrarUsuarioCategoria(User user) throws IOException{
+    public Json descadastrarUsuarioCategoria(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Descadastrando categoria do usuário", true);
         Json json = new Json();
         while (true) {
@@ -339,27 +361,51 @@ public class OperationController {
             if (id.matches("^[0-9]+$")) {
                 json.setId(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
         }
         json.setOperacao("descadastrarUsuarioCategoria");
         json.setToken(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Descadastrar categoria do usuario pronto para ser enviado",
+                true);
+        return json;
+    }
+    
+    public Json descadastrarUsuarioCategoria(User user, int id) throws IOException{
+        logController.writeSimpleLog("CLIENT: OPERATION", "Descadastrando categoria do usuário", true);
+        Json json = new Json();
+        json.setOperacao("descadastrarUsuarioCategoria");
+        json.setToken(user.getToken());
+        json.setId(id);
+        json.setRa(user.getToken());
         logController.writeSimpleLog("CLIENT: OPERATION", "Descadastrar categoria do usuario pronto para ser enviado", true);
         return json;
     }
 
-    public Json listarAvisos(User user) throws IOException{
+    public Json listarAvisos(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Listando avisos", true);
         Json json = new Json();
         json.setOperacao("listarAvisos");
         json.setToken(user.getToken());
+        json.setRa(user.getToken());
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listar avisos pronto para ser enviado", true);
+        return json;
+    }
+    
+    public Json listarAvisos(User user, int id) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Listando avisos", true);
+        Json json = new Json();
+        json.setOperacao("listarAvisos");
+        json.setToken(user.getToken());
+        json.setId(id);
+        json.setRa(user.getToken());
         logController.writeSimpleLog("CLIENT: OPERATION", "Listar avisos pronto para ser enviado", true);
         return json;
     }
 
-    public Json localizarAvisos(User user) throws IOException{
+    public Json localizarAvisos(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Localizando Avisos", true);
         Json json = new Json();
         json.setOperacao("localizarAviso");
@@ -370,11 +416,21 @@ public class OperationController {
             if (id.matches("^[0-9]+$")) {
                 json.setId(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
         } while (true);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Localizar avisos pronto para ser enviado", true);
+        return json;
+    }
+    
+    public Json localizarAviso(User user, int id) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Localizando Avisos", true);
+        Json json = new Json();
+        json.setOperacao("localizarAviso");
+        json.setToken(user.getToken());
+        json.setId(id);
         logController.writeSimpleLog("CLIENT: OPERATION", "Localizar avisos pronto para ser enviado", true);
         return json;
     }
@@ -507,7 +563,7 @@ public class OperationController {
         return json;        
     }
 
-    public Json criarCategoria(User user) throws IOException{
+    public Json criarCategoria(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Salvando Categoria", true);
         Json json = new Json();
         json.setOperacao("salvarCategoria");
@@ -519,28 +575,33 @@ public class OperationController {
             categoria.setName(System.console().readLine());
             if (categoria.getName().length() < 50 && categoria.getName().matches("^[A-Z]+$")) {
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Nome inválido", true);
                 ClearConsole.clearConsole();
                 System.out.println("Nome inválido");
             }
-            
+
         } while (true);
         categoria.setId(0);
         json.setCategorias(categoria);
-        System.out.println("Categoria: " + categoria.getName());
-        System.out.println("ID: " + categoria.getId());
-        System.out.println("Token: " + json.getToken());
-        System.out.println("Operação: " + json.getOperacao());
-        System.out.println("Categorias[]: " + categoria.getName());
-        System.out.println("Categorias[]: " + categoria.getId());
-        System.out.println(json.toString());
-        System.in.read();
         logController.writeSimpleLog("CLIENT: OPERATION", "Salvar categoria pronto para ser enviado", true);
         return json;
     }
 
-    public Json editarCategoria(User user) throws IOException{
+    public Json criarCategoria(User user, String name) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Salvando Categoria", true);
+        Json json = new Json();
+        json.setOperacao("salvarCategoria");
+        json.setToken(user.getToken());
+        Category categoria = new Category();
+        categoria.setName(name);
+        categoria.setId(0);
+        json.setCategorias(categoria);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Salvar categoria pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json editarCategoria(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Salvando Categoria", true);
         Json json = new Json();
         json.setOperacao("salvarCategoria");
@@ -553,7 +614,7 @@ public class OperationController {
             if (idString.matches("^[0-9]+$")) {
                 categoria.setId(Integer.parseInt(idString));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
@@ -564,7 +625,7 @@ public class OperationController {
             if (categoria.getName().length() < 50 && categoria.getName().matches("^[A-Z]+$")) {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Nome válido", true);
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Nome inválido", true);
                 System.out.println("Nome inválido");
             }
@@ -573,8 +634,21 @@ public class OperationController {
         logController.writeSimpleLog("CLIENT: OPERATION", "Salvar categoria pronto para ser enviado", true);
         return json;
     }
+    
+    public Json editarCategoria(User user, int id, String name) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Salvando Categoria", true);
+        Json json = new Json();
+        json.setOperacao("salvarCategoria");
+        json.setToken(user.getToken());
+        Category categoria = new Category();
+        categoria.setId(id);
+        categoria.setName(name);
+        json.setCategorias(categoria);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Salvar categoria pronto para ser enviado", true);
+        return json;
+    }
 
-    public Json excluirCategoria(User user) throws IOException{
+    public Json excluirCategoria(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Excluindo Categoria", true);
         Json json = new Json();
         json.setOperacao("excluirCategoria");
@@ -585,7 +659,7 @@ public class OperationController {
             if (id.matches("^[0-9]+$")) {
                 json.setId(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
@@ -593,8 +667,19 @@ public class OperationController {
         logController.writeSimpleLog("CLIENT: OPERATION", "Excluir categoria pronto para ser enviado", true);
         return json;
     }
+    
+    public Json excluirCategoria(User user, int id) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Excluindo Categoria", true);
+        Json json = new Json();
+        json.setOperacao("excluirCategoria");
+        json.setToken(user.getToken());
+        json.setRa(user.getToken());
+        json.setId(id);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Excluir categoria pronto para ser enviado", true);
+        return json;
+    }
 
-    public Json criarAviso(User user) throws IOException{
+    public Json criarAviso(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Salvando Aviso", true);
         Json json = new Json();
         json.setOperacao("salvarAviso");
@@ -606,7 +691,7 @@ public class OperationController {
             warning.setTitle(System.console().readLine());
             if (warning.getTitle().length() < 50 && warning.getTitle().matches("^[a-zA-Z ]+$")) {
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Título inválido", true);
                 System.out.println("Título inválido");
             }
@@ -616,22 +701,39 @@ public class OperationController {
             warning.setDescription(System.console().readLine());
             if (warning.getDescription().length() < 50 && warning.getDescription().matches("^[a-zA-Z ]+$")) {
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Descrição inválida", true);
                 System.out.println("Descrição inválida");
             }
         } while (true);
-        do{
+        do {
             System.out.print("Digite o ID da categoria: ");
             String id = System.console().readLine();
             if (id.matches("^[0-9]+$")) {
                 warning.setCategory(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
-        }while(true);
+        } while (true);
+        warning.setId(0);
+        List<Warnings> warnings = new ArrayList<>();
+        warnings.add(warning);
+        json.setAvisos(warnings);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Salvar aviso pronto para ser enviado", true);
+        return json;
+    }
+    
+    public Json criarAviso(User user, String title, String description, int category) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Salvando Aviso", true);
+        Json json = new Json();
+        json.setOperacao("salvarAviso");
+        json.setToken(user.getToken());
+        Warnings warning = new Warnings();
+        warning.setTitle(title);
+        warning.setDescription(description);
+        warning.setCategory(category);
         warning.setId(0);
         List<Warnings> warnings = new ArrayList<>();
         warnings.add(warning);
@@ -640,7 +742,7 @@ public class OperationController {
         return json;
     }
 
-    public Json editarAviso(User user)throws IOException{
+    public Json editarAviso(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Editando Aviso", true);
         Json json = new Json();
         json.setOperacao("salvarAviso");
@@ -653,7 +755,7 @@ public class OperationController {
             if (idString.matches("^[0-9]+$")) {
                 warning.setId(Integer.parseInt(idString));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
@@ -663,7 +765,7 @@ public class OperationController {
             warning.setTitle(System.console().readLine());
             if (warning.getTitle().length() < 50 && warning.getTitle().matches("^[a-zA-Z ]+$")) {
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Título inválido", true);
                 System.out.println("Título inválido");
             }
@@ -673,22 +775,22 @@ public class OperationController {
             warning.setDescription(System.console().readLine());
             if (warning.getDescription().length() < 50 && warning.getDescription().matches("^[a-zA-Z ]+$")) {
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "Descrição inválida", true);
                 System.out.println("Descrição inválida");
             }
         } while (true);
-        do{
+        do {
             System.out.print("Digite o ID da categoria: ");
             String id = System.console().readLine();
             if (id.matches("^[0-9]+$")) {
                 warning.setCategory(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
-        }while(true);
+        } while (true);
         List<Warnings> warnings = new ArrayList<>();
         warnings.add(warning);
         json.setAvisos(warnings);
@@ -696,7 +798,24 @@ public class OperationController {
         return json;
     }
 
-    public Json excluirAviso(User user) throws IOException{
+    public Json editarAviso(User user, int id, String title, String description, int category) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Editando Aviso", true);
+        Json json = new Json();
+        json.setOperacao("salvarAviso");
+        json.setToken(user.getToken());
+        Warnings warning = new Warnings();
+        warning.setId(id);
+        warning.setTitle(title);
+        warning.setDescription(description);
+        warning.setCategory(category);
+        List<Warnings> warnings = new ArrayList<>();
+        warnings.add(warning);
+        json.setAvisos(warnings);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Editar aviso pronto para ser enviado", true);
+        return json;
+    }
+
+    public Json excluirAviso(User user) throws IOException {
         logController.writeSimpleLog("CLIENT: OPERATION", "Excluindo Aviso", true);
         Json json = new Json();
         json.setOperacao("excluirAviso");
@@ -707,7 +826,7 @@ public class OperationController {
             if (id.matches("^[0-9]+$")) {
                 json.setId(Integer.parseInt(id));
                 break;
-            }else{
+            } else {
                 logController.writeSimpleLog("CLIENT: OPERATION", "ID inválido", true);
                 System.out.println("ID inválido");
             }
@@ -715,7 +834,17 @@ public class OperationController {
         logController.writeSimpleLog("CLIENT: OPERATION", "Excluir aviso pronto para ser enviado", true);
         return json;
     }
-
+    
+    public Json excluirAviso(User user, int id) throws IOException {
+        logController.writeSimpleLog("CLIENT: OPERATION", "Excluindo Aviso", true);
+        Json json = new Json();
+        json.setOperacao("excluirAviso");
+        json.setToken(user.getToken());
+        json.setRa(user.getToken());
+        json.setId(id);
+        logController.writeSimpleLog("CLIENT: OPERATION", "Excluir aviso pronto para ser enviado", true);
+        return json;
+    }
     
 
     public void sair(){}

@@ -48,7 +48,7 @@ public class Avisos {
 
     @Override
     public String toString() {
-        String returnString = "{id: " + this.id + "titulo:" + this.titulo + "descricao:" + this.descricao + "categoria:[" + this.categoria + "]}";
+        String returnString = "{id: " + this.id + "titulo:" + this.titulo + "descricao:" + this.descricao + "categoria:" + this.categoria + "}";
         return returnString;
     }
 }

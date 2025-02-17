@@ -30,7 +30,7 @@ public class Find extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 // TODO
-                new Category();
+                // new Category();
                 dispose();
             }
         });
