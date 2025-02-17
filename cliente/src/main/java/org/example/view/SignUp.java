@@ -187,12 +187,22 @@ public class SignUp extends JFrame {
             }
         });
         send.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton back = new JButton("Voltar");
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new Login(socket, in, out);
+                dispose();
+            }
+        });
+        back.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panel.add(nameLine);
         panel.add(raLine);
         panel.add(passwordLine);
         panel.add(retypePasswordLine);
         panel.add(send);
+        panel.add(back);
 
         panel.add(Box.createVerticalGlue());
 
