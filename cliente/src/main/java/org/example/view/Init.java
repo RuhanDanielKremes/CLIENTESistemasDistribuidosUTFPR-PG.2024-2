@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -46,18 +47,15 @@ public class Init extends JFrame{
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                while (true) {
-                    try {
-                        String inputString = portField.getText();
-                        String socketNumber = ipField.getText();
-                        System.out.println("IP: " + socketNumber + " PORTA: " + inputString);
-                        socket = new Socket(socketNumber, Integer.parseInt(inputString));
-                        new Method(socket, null, null);
-                        dispose();
-                        break;
-                    } catch (Exception er) {
-                        System.out.println("Opção inválida: " + er.getMessage());
-                    }
+                try {
+                    String inputString = portField.getText();
+                    String socketNumber = ipField.getText();
+                    System.out.println("IP: " + socketNumber + " PORTA: " + inputString);
+                    socket = new Socket(socketNumber, Integer.parseInt(inputString));
+                    new Method(socket, null, null);
+                    dispose();
+                } catch (Exception er) {
+                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o servidor", "Erro", JOptionPane.ERROR_MESSAGE);  
                 }
             }
         });

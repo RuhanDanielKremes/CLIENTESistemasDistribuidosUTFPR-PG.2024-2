@@ -26,13 +26,15 @@ public class Method extends JFrame {
         this.socket = socket;
         try {
             if (a != null) {
-                a.close();
+                in = a;
+            }else{
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             }
             if (b != null) {
-                b.close();
+                out = b;
+            }else{
+                out = new PrintWriter(socket.getOutputStream(), true);
             }
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Error initializing input/output streams", e);

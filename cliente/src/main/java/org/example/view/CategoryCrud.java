@@ -101,7 +101,7 @@ public class CategoryCrud extends JFrame {
                 new JOptionPane("Título, descrição e id da categoria não podem ser vazios");
             } else {
                 try {
-                    Json json = new OperationController().criarAviso(user, titulo.getText(), descricao.getText(), Integer.parseInt(id.getText()));
+                    Json json = new OperationController().criarAviso(user, titulo.getText(), descricao.getText(), Integer.parseInt(idCat.getText()));
                     System.out.println("Client: " + json.toString());
                     out.println(json.toString());
                     out.flush();

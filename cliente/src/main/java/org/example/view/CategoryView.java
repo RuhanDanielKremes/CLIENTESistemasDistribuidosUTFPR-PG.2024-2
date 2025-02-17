@@ -95,7 +95,7 @@ public class CategoryView extends JFrame{
         editarCategoria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new WarningCRUD(socket, in, out, user, "editCategory");
+                new CategoryCrud(socket, in, out, user, "editCategory");
                 dispose();
             }
         });
