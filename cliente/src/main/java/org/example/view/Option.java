@@ -75,7 +75,6 @@ public class Option extends JFrame {
             category.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO
                     new CategoryView(socket, in, out, user);
                     dispose();
                 }
@@ -86,7 +85,6 @@ public class Option extends JFrame {
             warning.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO
                     new Warning(socket, in, out, user);
                     dispose();
                 }

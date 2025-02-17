@@ -21,6 +21,7 @@ public class Method extends JFrame {
     BufferedReader in;
     PrintWriter out;
 
+    @SuppressWarnings("resource")
     public Method(Socket socket, BufferedReader a, PrintWriter b) {
         this.socket = socket;
         try {
@@ -61,7 +62,6 @@ public class Method extends JFrame {
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                // TODO
                 new SignUp(socket, in, out);
                 dispose();
             }
@@ -72,7 +72,6 @@ public class Method extends JFrame {
         host.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                // TODO
                 new Init();
                 dispose();
             }
